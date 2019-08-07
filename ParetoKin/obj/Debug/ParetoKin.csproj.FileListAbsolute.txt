@@ -1,0 +1,12 @@
+C:\Users\COMPANY\source\repos\ParetoKin\ParetoKin\bin\Debug\ParetoKin.exe.config
+C:\Users\COMPANY\source\repos\ParetoKin\ParetoKin\bin\Debug\ParetoKin.exe
+C:\Users\COMPANY\source\repos\ParetoKin\ParetoKin\bin\Debug\ParetoKin.pdb
+C:\Users\COMPANY\source\repos\ParetoKin\ParetoKin\obj\Debug\ParetoKin.csprojAssemblyReference.cache
+C:\Users\COMPANY\source\repos\ParetoKin\ParetoKin\obj\Debug\ParetoKin.vista.modulotareas.TareasMain.resources
+C:\Users\COMPANY\source\repos\ParetoKin\ParetoKin\obj\Debug\ParetoKin.Properties.Resources.resources
+C:\Users\COMPANY\source\repos\ParetoKin\ParetoKin\obj\Debug\ParetoKin.csproj.GenerateResource.cache
+C:\Users\COMPANY\source\repos\ParetoKin\ParetoKin\obj\Debug\ParetoKin.csproj.CoreCompileInputs.cache
+C:\Users\COMPANY\source\repos\ParetoKin\ParetoKin\obj\Debug\ParetoKin.exe
+C:\Users\COMPANY\source\repos\ParetoKin\ParetoKin\obj\Debug\ParetoKin.pdb
+C:\Users\COMPANY\source\repos\ParetoKin\ParetoKin\obj\Debug\ParetoKin.vista.modulotareas.TareaDetallada.resources
+C:\Users\COMPANY\source\repos\ParetoKin\ParetoKin\obj\Debug\ParetoKin.VistaPrincipal.resources
