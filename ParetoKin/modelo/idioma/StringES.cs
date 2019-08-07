@@ -20,10 +20,21 @@ namespace ParetoKin.modelo.idioma
             diccionarioES.Add("buttonTareas", "Tareas");
             diccionarioES.Add("buttonGuardarCambios", "Guardar cambios");
             diccionarioES.Add("buttonCancelar", "Cancelar");
+            diccionarioES.Add("buttonHorarios", "Horarios");
+            diccionarioES.Add("buttonMatriz", "Matriz de prioridades");
+
+            
+
 
             // Etiquetas
             diccionarioES.Add("labelFiltrarPorNombre", "Filtrar por nombre");
+            diccionarioES.Add("labelImportante", "Importante");
+            diccionarioES.Add("labelNoImportante", "No importante");
+            diccionarioES.Add("labelUrgente", "Urgente");
+            diccionarioES.Add("labelNoUrgente", "No urgente");
 
+
+            
 
             // headers Text
             diccionarioES.Add("nombreTarea", "Nombre de la tarea");
@@ -38,12 +49,38 @@ namespace ParetoKin.modelo.idioma
             diccionarioES.Add("dias", "Días");
             diccionarioES.Add("cumplido", "Cumplido");
 
+            diccionarioES.Add("horaInicio", "Inicio");
+            diccionarioES.Add("horaFin", "Fin");
+            diccionarioES.Add("minutos", "Minutos");
+            diccionarioES.Add("lunes", "Lunes");
+            diccionarioES.Add("martes", "Martes");
+            diccionarioES.Add("miercoles", "Miércoles");
+            diccionarioES.Add("jueves", "Jueves");
+            diccionarioES.Add("viernes", "Viernes");
+            diccionarioES.Add("sabado", "Sábado");
+            diccionarioES.Add("domingo", "Domingo");
+
+            diccionarioES.Add("nombreTareaUrgenteImportante", "Tareas urgentes e importantes");
+            diccionarioES.Add("tareasNoImportantesNoUrgentes", "Tareas sin urgencia ni importancia");
+            diccionarioES.Add("tareasNoImportantesSiUrgentes", "Tareas urgentes pero no importantes");
+            diccionarioES.Add("tareasNoUrgentesSiImportantes", "Tareas importantes pero no urgentes");
 
 
-            // titulos ventanas
+
+            // titulos y ventanas
             diccionarioES.Add("msgGuardarSalir", "¿Desea guardar los cambios realizados antes de salir?");
             diccionarioES.Add("tituloCambiosRealizados", "Cambios sin guardar");
+            diccionarioES.Add("msgCambiosGuardadosExitosamente", "Cambios guardados exitosamente");
+            diccionarioES.Add("msgLosMinutosDebenSerMayoresA0", "¡Los minutos deben ser mayores a 0!");
+            diccionarioES.Add("msgFechaSinElFormatoValido", "Las fechas deben tener el formato dd/mm/aaaa hh:mm:ss(opcional)\nEjemplo: para el 4 de Mayo de 1990 en el medio día\n04/05/1990 12:00:00\nO también, 04/05/1990");
 
+
+            // tooltips
+
+            diccionarioES.Add("toolTipnombreTareaUrgenteImportante", "Estas tareas deben realizarse lo más pronto posible");
+            diccionarioES.Add("toolTiptareasNoImportantesNoUrgentes", "Estas tareas son triviales por lo tanto no tienen una fecha límite");
+            diccionarioES.Add("toolTiptareasNoImportantesSiUrgentes", "Estas tareas suelen ser interrupciones, no son importantes pero se requiere realizarlas tan pronto como se pueda");
+            diccionarioES.Add("toolTiptareasNoUrgentesSiImportantes", "Estas tareas se refieren a 'planificación', es importante pero no se deben realizar instantáneamente");
 
             //meses
             diccionarioES.Add("Enero", "Enero");
@@ -58,10 +95,15 @@ namespace ParetoKin.modelo.idioma
             diccionarioES.Add("Octubre", "Octubre");
             diccionarioES.Add("Noviembre", "Noviembre");
             diccionarioES.Add("Diciembre", "Diciembre");
+            diccionarioES.Add("Hoy", "Hoy");
 
+
+            
             //preposiciones
 
             diccionarioES.Add("de", "de");
+            diccionarioES.Add("del", "del");
+
 
 
             // diccionarioES.Add("", "");

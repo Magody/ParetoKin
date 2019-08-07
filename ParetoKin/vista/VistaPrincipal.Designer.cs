@@ -32,6 +32,11 @@
             this.panelGenerico = new System.Windows.Forms.Panel();
             this.buttonSalir = new System.Windows.Forms.Button();
             this.buttonTareas = new System.Windows.Forms.Button();
+            this.buttonHorarios = new System.Windows.Forms.Button();
+            this.labelFecha = new System.Windows.Forms.Label();
+            this.labelHora = new System.Windows.Forms.Label();
+            this.buttonHoy = new System.Windows.Forms.Button();
+            this.buttonMatriz = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -57,7 +62,7 @@
             this.buttonSalir.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.buttonSalir.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.buttonSalir.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSalir.Location = new System.Drawing.Point(41, 356);
+            this.buttonSalir.Location = new System.Drawing.Point(33, 391);
             this.buttonSalir.Name = "buttonSalir";
             this.buttonSalir.Size = new System.Drawing.Size(102, 49);
             this.buttonSalir.TabIndex = 2;
@@ -71,13 +76,76 @@
             this.buttonTareas.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.buttonTareas.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.buttonTareas.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonTareas.Location = new System.Drawing.Point(0, 163);
+            this.buttonTareas.Location = new System.Drawing.Point(0, 233);
             this.buttonTareas.Name = "buttonTareas";
-            this.buttonTareas.Size = new System.Drawing.Size(174, 40);
+            this.buttonTareas.Size = new System.Drawing.Size(174, 34);
             this.buttonTareas.TabIndex = 3;
             this.buttonTareas.Text = "Tareas";
             this.buttonTareas.UseVisualStyleBackColor = true;
             this.buttonTareas.Click += new System.EventHandler(this.ButtonTareas_Click);
+            // 
+            // buttonHorarios
+            // 
+            this.buttonHorarios.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonHorarios.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.buttonHorarios.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.buttonHorarios.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonHorarios.Location = new System.Drawing.Point(0, 273);
+            this.buttonHorarios.Name = "buttonHorarios";
+            this.buttonHorarios.Size = new System.Drawing.Size(174, 31);
+            this.buttonHorarios.TabIndex = 4;
+            this.buttonHorarios.Text = "Horarios";
+            this.buttonHorarios.UseVisualStyleBackColor = true;
+            this.buttonHorarios.Click += new System.EventHandler(this.ButtonHorarios_Click);
+            // 
+            // labelFecha
+            // 
+            this.labelFecha.AutoSize = true;
+            this.labelFecha.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.labelFecha.Location = new System.Drawing.Point(12, 365);
+            this.labelFecha.Name = "labelFecha";
+            this.labelFecha.Size = new System.Drawing.Size(157, 13);
+            this.labelFecha.TabIndex = 5;
+            this.labelFecha.Text = "XX de YYYYYYYYYY del ZZZZ";
+            // 
+            // labelHora
+            // 
+            this.labelHora.AutoSize = true;
+            this.labelHora.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.labelHora.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelHora.Location = new System.Drawing.Point(12, 316);
+            this.labelHora.Name = "labelHora";
+            this.labelHora.Size = new System.Drawing.Size(149, 39);
+            this.labelHora.TabIndex = 6;
+            this.labelHora.Text = "88:88:88";
+            // 
+            // buttonHoy
+            // 
+            this.buttonHoy.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonHoy.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.buttonHoy.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.buttonHoy.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonHoy.Location = new System.Drawing.Point(0, 123);
+            this.buttonHoy.Name = "buttonHoy";
+            this.buttonHoy.Size = new System.Drawing.Size(174, 38);
+            this.buttonHoy.TabIndex = 7;
+            this.buttonHoy.Text = "Hoy";
+            this.buttonHoy.UseVisualStyleBackColor = true;
+            this.buttonHoy.Click += new System.EventHandler(this.ButtonHoy_Click);
+            // 
+            // buttonMatriz
+            // 
+            this.buttonMatriz.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonMatriz.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.buttonMatriz.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.buttonMatriz.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonMatriz.Location = new System.Drawing.Point(0, 167);
+            this.buttonMatriz.Name = "buttonMatriz";
+            this.buttonMatriz.Size = new System.Drawing.Size(174, 60);
+            this.buttonMatriz.TabIndex = 8;
+            this.buttonMatriz.Text = "Matriz de prioridades";
+            this.buttonMatriz.UseVisualStyleBackColor = true;
+            this.buttonMatriz.Click += new System.EventHandler(this.ButtonMatriz_Click);
             // 
             // VistaPrincipal
             // 
@@ -85,6 +153,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(989, 452);
+            this.Controls.Add(this.buttonMatriz);
+            this.Controls.Add(this.buttonHoy);
+            this.Controls.Add(this.labelHora);
+            this.Controls.Add(this.labelFecha);
+            this.Controls.Add(this.buttonHorarios);
             this.Controls.Add(this.buttonTareas);
             this.Controls.Add(this.buttonSalir);
             this.Controls.Add(this.panelGenerico);
@@ -94,8 +167,10 @@
             this.Name = "VistaPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Sistema ParetoKin";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.cierreSeguro);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -105,6 +180,11 @@
         private System.Windows.Forms.Button buttonSalir;
         private System.Windows.Forms.Button buttonTareas;
         public System.Windows.Forms.Panel panelGenerico;
+        private System.Windows.Forms.Button buttonHorarios;
+        private System.Windows.Forms.Label labelFecha;
+        private System.Windows.Forms.Label labelHora;
+        private System.Windows.Forms.Button buttonHoy;
+        private System.Windows.Forms.Button buttonMatriz;
     }
 }
 

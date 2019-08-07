@@ -26,7 +26,11 @@ namespace ParetoKin
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //MessageBox.Show(new Fecha(6,6,2019).adelantarFecha(1).ToString());
+            //MessageBox.Show(new Fecha(7, 8, 2019).retrocederFecha(31).ToString());
+
             
+
+
             str = new StringMain(StringMain.IDIOMA_ESPANOL);
             Application.Run(new VistaPrincipal());
         }

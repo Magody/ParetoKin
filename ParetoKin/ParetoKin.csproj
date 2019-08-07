@@ -48,9 +48,28 @@
   <ItemGroup>
     <Compile Include="modelo\EspecificacionTarea.cs" />
     <Compile Include="modelo\Fecha.cs" />
+    <Compile Include="modelo\Hora.cs" />
     <Compile Include="modelo\idioma\StringES.cs" />
     <Compile Include="modelo\idioma\StringMain.cs" />
     <Compile Include="modelo\Tarea.cs" />
+    <Compile Include="vista\modulohorarios\HorariosMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="vista\modulohorarios\HorariosMain.Designer.cs">
+      <DependentUpon>HorariosMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="vista\modulohoy\HoyMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="vista\modulohoy\HoyMain.Designer.cs">
+      <DependentUpon>HoyMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="vista\modulomatriz\MatrizMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="vista\modulomatriz\MatrizMain.Designer.cs">
+      <DependentUpon>MatrizMain.cs</DependentUpon>
+    </Compile>
     <Compile Include="vista\modulotareas\TareaDetallada.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,6 +90,15 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="vista\modulohorarios\HorariosMain.resx">
+      <DependentUpon>HorariosMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="vista\modulohoy\HoyMain.resx">
+      <DependentUpon>HoyMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="vista\modulomatriz\MatrizMain.resx">
+      <DependentUpon>MatrizMain.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="vista\modulotareas\TareaDetallada.resx">
       <DependentUpon>TareaDetallada.cs</DependentUpon>
     </EmbeddedResource>

@@ -20,6 +20,9 @@ namespace ParetoKin.vista.modulotareas
         List<int> tareasPendientes;
         VistaPrincipal padre;
 
+        Color colorPreferidoTareas = Color.Aqua;
+        Color colorSecundarioTareas = Color.White;
+
         public TareasMain(VistaPrincipal padre)
         {
             InitializeComponent();
@@ -67,7 +70,8 @@ namespace ParetoKin.vista.modulotareas
                         tareas.Add(new Tarea(Convert.ToInt32(rdr["numero"].ToString()), rdr["nombre"].ToString(), rdr["descripcion"].ToString(),
                             Convert.ToBoolean(rdr["importante"].ToString().ToLower()),
                             Convert.ToBoolean(rdr["urgente"].ToString().ToLower()),
-                            Convert.ToDateTime(rdr["fechaInicio"].ToString())
+                            Convert.ToDateTime(rdr["fechaInicio"].ToString()),
+                            Convert.ToDateTime(rdr["fechaFin"].ToString())
                             ));
 
 
@@ -109,7 +113,8 @@ namespace ParetoKin.vista.modulotareas
                         tareas.Add(new Tarea(Convert.ToInt32(rdr["numero"].ToString()), rdr["nombre"].ToString(), rdr["descripcion"].ToString(),
                             Convert.ToBoolean(rdr["importante"].ToString().ToLower()),
                             Convert.ToBoolean(rdr["urgente"].ToString().ToLower()),
-                            Convert.ToDateTime(rdr["fechaInicio"].ToString())
+                            Convert.ToDateTime(rdr["fechaInicio"].ToString()),
+                            Convert.ToDateTime(rdr["fechaFin"].ToString())
                             ));
 
 
@@ -138,7 +143,7 @@ namespace ParetoKin.vista.modulotareas
                     cmd.CommandType = CommandType.StoredProcedure;
 
 
-                    string numero = ""+dataGridViewListaTareas.Rows[i].Cells[5].Value;
+                    string numero = ""+dataGridViewListaTareas.Rows[i].Cells[6].Value;
                     if (numero == "")
                     {
                         cmd.Parameters.Add(new SqlParameter("@numero", -1));
@@ -151,8 +156,26 @@ namespace ParetoKin.vista.modulotareas
                     cmd.Parameters.Add(new SqlParameter("@descripcion", "" + dataGridViewListaTareas.Rows[i].Cells[1].Value));
                     cmd.Parameters.Add(new SqlParameter("@importante", (Convert.ToBoolean(dataGridViewListaTareas.Rows[i].Cells[2].Value))? 1:0));
                     cmd.Parameters.Add(new SqlParameter("@urgente", (Convert.ToBoolean(dataGridViewListaTareas.Rows[i].Cells[3].Value))? 1:0));
-                    cmd.Parameters.Add(new SqlParameter("@fechaInicio", (Convert.ToBoolean(dataGridViewListaTareas.Rows[i].Cells[4].Value)) ? 1 : 0));
 
+
+                    try
+                    {
+                        Fecha fechaInicial = Fecha.convertirDateTimeMMDDYYAFecha("" + dataGridViewListaTareas.Rows[i].Cells[4].Value);
+                        string hor = (dataGridViewListaTareas.Rows[i].Cells[4].Value + "").Split(' ')[1];
+                        cmd.Parameters.Add(new SqlParameter("@fechaInicio", fechaInicial.ToString() + " " + hor));
+
+                        Fecha fechaFinal = Fecha.convertirDateTimeMMDDYYAFecha("" + dataGridViewListaTareas.Rows[i].Cells[5].Value);
+                        string hofr = (dataGridViewListaTareas.Rows[i].Cells[5].Value + "").Split(' ')[1];
+                        cmd.Parameters.Add(new SqlParameter("@fechaFin", fechaFinal.ToString() + " " + hofr));
+
+
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show(Program.str.diccionario["msgFechaSinElFormatoValido"]);
+                        return;
+                    }
+                    
                     cmd.ExecuteReader();
                     conn.Close();
                 }
@@ -181,8 +204,11 @@ namespace ParetoKin.vista.modulotareas
             tareasPendientes.Clear();
         }
 
+
         public void guardarCambios()
         {
+            
+
             this.fue_modificado = false;
             actualizarCrearTareas();
 
@@ -193,7 +219,7 @@ namespace ParetoKin.vista.modulotareas
 
 
             this.hay_eliminacion = false;
-            MessageBox.Show("Cambios guardados exitosamente");
+            MessageBox.Show(Program.str.diccionario["msgCambiosGuardadosExitosamente"]);
         }
 
         public void mostrarTareas(bool es_busqueda)
@@ -209,11 +235,40 @@ namespace ParetoKin.vista.modulotareas
             for (int i = 0; i < lista_tareas.Count; i++)
             {
 
-                dataGridViewListaTareas.Rows.Add(lista_tareas[i].Nombre, lista_tareas[i].Descripcion, lista_tareas[i].Importante, lista_tareas[i].Urgente,  lista_tareas[i].FechaInicio, lista_tareas[i].Numero);
+                dataGridViewListaTareas.Rows.Add(lista_tareas[i].Nombre, lista_tareas[i].Descripcion, lista_tareas[i].Importante, lista_tareas[i].Urgente,  lista_tareas[i].FechaInicio, lista_tareas[i].FechaFin, lista_tareas[i].Numero);
+                pintarCeldas(i);
+            }
+        }
+        public void pintarCeldas(int indice)
+        {
+            if (indice % 2 == 0)
+            {
 
+                for (int j = 0; j < dataGridViewListaTareas.Columns.Count - 1; j++)
+                {
+                    dataGridViewListaTareas.Rows[indice].Cells[j].Style.BackColor = colorPreferidoTareas;
+                }
+
+            }
+            else
+            {
+
+                for (int j = 0; j < dataGridViewListaTareas.Columns.Count - 1; j++)
+                {
+                    dataGridViewListaTareas.Rows[indice].Cells[j].Style.BackColor = colorSecundarioTareas;
+                }
             }
         }
 
+
+        private void repintarCeldas()
+        {
+            
+            for (int i = 0; i < dataGridViewListaTareas.Rows.Count; i++)
+            {
+                pintarCeldas(i);
+            }
+        }
 
         private void ButtonCancelar_Click(object sender, EventArgs e)
         {
@@ -246,10 +301,25 @@ namespace ParetoKin.vista.modulotareas
         {
             if(e.RowIndex >= 0)
             {
-                numTarea = Convert.ToInt32(this.dataGridViewListaTareas.Rows[dataGridViewListaTareas.CurrentRow.Index].Cells[5].Value);
+
+                try
+                {
+                    Fecha fechaInicial = Fecha.convertirDateTimeMMDDYYAFecha("" + dataGridViewListaTareas.Rows[dataGridViewListaTareas.CurrentRow.Index].Cells[4].Value);
+                    
+                    Fecha fechaFinal = Fecha.convertirDateTimeMMDDYYAFecha("" + dataGridViewListaTareas.Rows[dataGridViewListaTareas.CurrentRow.Index].Cells[5].Value);
+                    
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show(Program.str.diccionario["msgFechaSinElFormatoValido"]);
+                    return;
+                }
+
+                numTarea = Convert.ToInt32(this.dataGridViewListaTareas.Rows[dataGridViewListaTareas.CurrentRow.Index].Cells[6].Value);
 
                 this.Hide();
-                padre.form_generico = new TareaDetallada(this, numTarea, ""+ this.dataGridViewListaTareas.Rows[dataGridViewListaTareas.CurrentRow.Index].Cells[4].Value) { TopLevel = false, FormBorderStyle = FormBorderStyle.None, Dock = DockStyle.Fill };
+
+                padre.form_generico = new TareaDetallada(this,null, numTarea, ""+ this.dataGridViewListaTareas.Rows[dataGridViewListaTareas.CurrentRow.Index].Cells[4].Value, "" + this.dataGridViewListaTareas.Rows[dataGridViewListaTareas.CurrentRow.Index].Cells[5].Value) { TopLevel = false, FormBorderStyle = FormBorderStyle.None, Dock = DockStyle.Fill };
                 padre.panelGenerico.Controls.Add(padre.form_generico);
                 padre.form_generico.Show();
             }
@@ -276,20 +346,35 @@ namespace ParetoKin.vista.modulotareas
         {
             if (e.RowIndex >= 0)
             {
-                this.numTarea = Convert.ToInt32(this.dataGridViewListaTareas.Rows[dataGridViewListaTareas.CurrentRow.Index].Cells[5].Value);
+                this.numTarea = Convert.ToInt32(this.dataGridViewListaTareas.Rows[dataGridViewListaTareas.CurrentRow.Index].Cells[6].Value);
 
             }
         }
 
         private void filaEliminada(object sender, DataGridViewRowsRemovedEventArgs e)
         {
-            if(numTarea != -1)
+            if(numTarea > 0)
             {
                 this.fue_modificado = true;
                 this.hay_eliminacion = true;
                 tareasPendientes.Add(numTarea);
+                repintarCeldas();
             }
             
+        }
+
+        private void nuevaFila(object sender, DataGridViewRowEventArgs e)
+        {
+            DateTime dateTime = DateTime.Now;
+            this.dataGridViewListaTareas.Rows[dataGridViewListaTareas.CurrentRow.Index].Cells[4].Value = 
+                dateTime.Date.Day + "/" + dateTime.Date.Month + "/" + dateTime.Date.Year + " " + dateTime.Hour + ":" + dateTime.Minute + ":" + dateTime.Second;
+
+            Fecha fechaManana = new Fecha(dateTime.Date.Day,dateTime.Date.Month,dateTime.Date.Year).adelantarFecha(1);
+
+            this.dataGridViewListaTareas.Rows[dataGridViewListaTareas.CurrentRow.Index].Cells[5].Value =
+                fechaManana.Dia + "/" + fechaManana.Mes + "/" + fechaManana.Anio + " " + dateTime.Hour + ":" + dateTime.Minute + ":" + dateTime.Second;
+
+            repintarCeldas();
         }
     }
 }

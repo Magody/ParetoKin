@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.buttonCerrar = new System.Windows.Forms.Button();
             this.dataGridViewEspecificaciones = new System.Windows.Forms.DataGridView();
             this.numeroEspecificacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -56,7 +56,6 @@
             // 
             // dataGridViewEspecificaciones
             // 
-            this.dataGridViewEspecificaciones.AllowUserToDeleteRows = false;
             this.dataGridViewEspecificaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewEspecificaciones.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.numeroEspecificacion,
@@ -72,12 +71,13 @@
             this.dataGridViewEspecificaciones.TabIndex = 9;
             this.dataGridViewEspecificaciones.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.celdaClick);
             this.dataGridViewEspecificaciones.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.filaEditada);
+            this.dataGridViewEspecificaciones.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.filaEliminada);
             this.dataGridViewEspecificaciones.UserAddedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.nuevaFila);
             // 
             // numeroEspecificacion
             // 
-            dataGridViewCellStyle13.NullValue = "1";
-            this.numeroEspecificacion.DefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle3.NullValue = "1";
+            this.numeroEspecificacion.DefaultCellStyle = dataGridViewCellStyle3;
             this.numeroEspecificacion.HeaderText = "Número";
             this.numeroEspecificacion.Name = "numeroEspecificacion";
             this.numeroEspecificacion.ReadOnly = true;
@@ -104,8 +104,8 @@
             // dias
             // 
             this.dias.DataPropertyName = "dato";
-            dataGridViewCellStyle14.NullValue = "-1";
-            this.dias.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle4.NullValue = "-1";
+            this.dias.DefaultCellStyle = dataGridViewCellStyle4;
             this.dias.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
             this.dias.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.dias.HeaderText = "Días";

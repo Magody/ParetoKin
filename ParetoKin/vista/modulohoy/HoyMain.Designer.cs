@@ -1,6 +1,6 @@
-﻿namespace ParetoKin.vista.modulotareas
+﻿namespace ParetoKin.vista.modulohoy
 {
-    partial class TareasMain
+    partial class HoyMain
     {
         /// <summary>
         /// Required designer variable.
@@ -29,16 +29,13 @@
         private void InitializeComponent()
         {
             this.dataGridViewListaTareas = new System.Windows.Forms.DataGridView();
-            this.labelFiltrarPorNombre = new System.Windows.Forms.Label();
-            this.textBoxNombre = new System.Windows.Forms.TextBox();
             this.buttonCerrar = new System.Windows.Forms.Button();
-            this.buttonGuardarCambios = new System.Windows.Forms.Button();
             this.nombreTarea = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.descripcionTarea = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.importanciaTarea = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.urgenciaTarea = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.fechaInicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fechaFin = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fechaInicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.numeroTarea = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewListaTareas)).BeginInit();
             this.SuspendLayout();
@@ -52,75 +49,45 @@
             this.descripcionTarea,
             this.importanciaTarea,
             this.urgenciaTarea,
-            this.fechaInicio,
             this.fechaFin,
+            this.fechaInicio,
             this.numeroTarea});
-            this.dataGridViewListaTareas.Location = new System.Drawing.Point(2, 38);
+            this.dataGridViewListaTareas.Location = new System.Drawing.Point(2, 27);
             this.dataGridViewListaTareas.Name = "dataGridViewListaTareas";
             this.dataGridViewListaTareas.Size = new System.Drawing.Size(783, 312);
-            this.dataGridViewListaTareas.TabIndex = 0;
-            this.dataGridViewListaTareas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.celdaClick);
-            this.dataGridViewListaTareas.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.visualizarTareaDetalles);
-            this.dataGridViewListaTareas.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.celdaEditada);
-            this.dataGridViewListaTareas.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.filaEliminada);
-            this.dataGridViewListaTareas.UserAddedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.nuevaFila);
-            // 
-            // labelFiltrarPorNombre
-            // 
-            this.labelFiltrarPorNombre.AutoSize = true;
-            this.labelFiltrarPorNombre.Location = new System.Drawing.Point(267, 15);
-            this.labelFiltrarPorNombre.Name = "labelFiltrarPorNombre";
-            this.labelFiltrarPorNombre.Size = new System.Drawing.Size(115, 13);
-            this.labelFiltrarPorNombre.TabIndex = 1;
-            this.labelFiltrarPorNombre.Text = "Filtrar tarea por nombre";
-            // 
-            // textBoxNombre
-            // 
-            this.textBoxNombre.Location = new System.Drawing.Point(404, 12);
-            this.textBoxNombre.Name = "textBoxNombre";
-            this.textBoxNombre.Size = new System.Drawing.Size(159, 20);
-            this.textBoxNombre.TabIndex = 2;
-            this.textBoxNombre.KeyUp += new System.Windows.Forms.KeyEventHandler(this.busquedaTareas);
+            this.dataGridViewListaTareas.TabIndex = 1;
             // 
             // buttonCerrar
             // 
             this.buttonCerrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCerrar.Location = new System.Drawing.Point(420, 356);
+            this.buttonCerrar.Location = new System.Drawing.Point(339, 346);
             this.buttonCerrar.Name = "buttonCerrar";
             this.buttonCerrar.Size = new System.Drawing.Size(117, 43);
-            this.buttonCerrar.TabIndex = 7;
+            this.buttonCerrar.TabIndex = 8;
             this.buttonCerrar.Text = "Cerrar";
             this.buttonCerrar.UseVisualStyleBackColor = true;
-            this.buttonCerrar.Click += new System.EventHandler(this.ButtonCancelar_Click);
-            // 
-            // buttonGuardarCambios
-            // 
-            this.buttonGuardarCambios.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonGuardarCambios.Location = new System.Drawing.Point(187, 356);
-            this.buttonGuardarCambios.Name = "buttonGuardarCambios";
-            this.buttonGuardarCambios.Size = new System.Drawing.Size(177, 43);
-            this.buttonGuardarCambios.TabIndex = 8;
-            this.buttonGuardarCambios.Text = "Guardar cambios";
-            this.buttonGuardarCambios.UseVisualStyleBackColor = true;
-            this.buttonGuardarCambios.Click += new System.EventHandler(this.ButtonGuardarCambios_Click);
+            this.buttonCerrar.Click += new System.EventHandler(this.ButtonCerrar_Click);
             // 
             // nombreTarea
             // 
             this.nombreTarea.HeaderText = "Nombre";
             this.nombreTarea.Name = "nombreTarea";
+            this.nombreTarea.ReadOnly = true;
             this.nombreTarea.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.nombreTarea.Width = 160;
+            this.nombreTarea.Width = 200;
             // 
             // descripcionTarea
             // 
             this.descripcionTarea.HeaderText = "Descripción";
             this.descripcionTarea.Name = "descripcionTarea";
-            this.descripcionTarea.Width = 240;
+            this.descripcionTarea.ReadOnly = true;
+            this.descripcionTarea.Width = 300;
             // 
             // importanciaTarea
             // 
             this.importanciaTarea.HeaderText = "Importante";
             this.importanciaTarea.Name = "importanciaTarea";
+            this.importanciaTarea.ReadOnly = true;
             this.importanciaTarea.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.importanciaTarea.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.importanciaTarea.Width = 70;
@@ -129,19 +96,23 @@
             // 
             this.urgenciaTarea.HeaderText = "Urgencia";
             this.urgenciaTarea.Name = "urgenciaTarea";
+            this.urgenciaTarea.ReadOnly = true;
             this.urgenciaTarea.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.urgenciaTarea.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.urgenciaTarea.Width = 70;
-            // 
-            // fechaInicio
-            // 
-            this.fechaInicio.HeaderText = "FechaInicio";
-            this.fechaInicio.Name = "fechaInicio";
             // 
             // fechaFin
             // 
             this.fechaFin.HeaderText = "FechaFin";
             this.fechaFin.Name = "fechaFin";
+            this.fechaFin.ReadOnly = true;
+            // 
+            // fechaInicio
+            // 
+            this.fechaInicio.HeaderText = "fechaInicio";
+            this.fechaInicio.Name = "fechaInicio";
+            this.fechaInicio.ReadOnly = true;
+            this.fechaInicio.Visible = false;
             // 
             // numeroTarea
             // 
@@ -150,37 +121,30 @@
             this.numeroTarea.ReadOnly = true;
             this.numeroTarea.Visible = false;
             // 
-            // TareasMain
+            // HoyMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 401);
-            this.Controls.Add(this.buttonGuardarCambios);
             this.Controls.Add(this.buttonCerrar);
-            this.Controls.Add(this.textBoxNombre);
-            this.Controls.Add(this.labelFiltrarPorNombre);
             this.Controls.Add(this.dataGridViewListaTareas);
-            this.Name = "TareasMain";
-            this.Text = "TareasMain";
+            this.Name = "HoyMain";
+            this.Text = "HoyMain";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewListaTareas)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridViewListaTareas;
-        private System.Windows.Forms.Label labelFiltrarPorNombre;
-        private System.Windows.Forms.TextBox textBoxNombre;
         private System.Windows.Forms.Button buttonCerrar;
-        private System.Windows.Forms.Button buttonGuardarCambios;
         private System.Windows.Forms.DataGridViewTextBoxColumn nombreTarea;
         private System.Windows.Forms.DataGridViewTextBoxColumn descripcionTarea;
         private System.Windows.Forms.DataGridViewCheckBoxColumn importanciaTarea;
         private System.Windows.Forms.DataGridViewCheckBoxColumn urgenciaTarea;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fechaInicio;
         private System.Windows.Forms.DataGridViewTextBoxColumn fechaFin;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fechaInicio;
         private System.Windows.Forms.DataGridViewTextBoxColumn numeroTarea;
     }
 }

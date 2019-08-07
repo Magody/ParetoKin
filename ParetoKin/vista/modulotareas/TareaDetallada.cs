@@ -1,4 +1,5 @@
 ﻿using ParetoKin.modelo;
+using ParetoKin.vista.modulomatriz;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,19 +18,31 @@ namespace ParetoKin.vista.modulotareas
     public partial class TareaDetallada : Form
     {
         TareasMain padre;
+        MatrizMain padre2;
         int numTarea;
         bool fue_modificado;
 
         Fecha fechaInicial;
+        Fecha fechaFinal;
 
         List<Fecha> fechas;
 
+        private bool hay_eliminacion;
+        List<int> eliminacionesPendientes;
+
+        Color colorPreferidoEspecificaciones = Color.LightSkyBlue;
+        Color colorSecundarioEspecificaciones = Color.White;
+
+        int id_especificacion = -1;
+
+
         bool esta_recalculando;
 
-        public TareaDetallada(TareasMain padre, int numTarea, string fechaInicial)
+        public TareaDetallada(TareasMain padre, MatrizMain padre2, int numTarea, string fechaInicial, string fechaFinal)
         {
             InitializeComponent();
             this.padre = padre;
+            this.padre2 = padre2;
             this.numTarea = numTarea;
             this.buttonGuardarCambios.Text = Program.str.diccionario["buttonGuardarCambios"];
             this.buttonCerrar.Text = Program.str.diccionario["buttonCerrar"];
@@ -43,18 +56,41 @@ namespace ParetoKin.vista.modulotareas
             this.cumplido.HeaderText = Program.str.diccionario["cumplido"];
 
 
+            if(dataGridViewEspecificaciones.Rows.Count > 1)
+            {
+                recalcularNumeroEspecificacion();
+            }
+            else
+            {
+                this.dataGridViewEspecificaciones.Rows[0].Cells[0].Value = "1";
+                this.dataGridViewEspecificaciones.Rows[0].Cells[4].Value = "1";
+                this.dataGridViewEspecificaciones.Rows[0].Cells[5].Value = false;
 
-            int valor_anterior = Convert.ToInt32(dataGridViewEspecificaciones.Rows[dataGridViewEspecificaciones.Rows.Count - 2].Cells[0].Value);
+            }
 
-            this.dataGridViewEspecificaciones.Rows[dataGridViewEspecificaciones.Rows.Count - 1].Cells[0].Value = valor_anterior + 1;
-            this.dataGridViewEspecificaciones.Rows[dataGridViewEspecificaciones.Rows.Count - 1].Cells[4].Value = "1";
-            this.dataGridViewEspecificaciones.Rows[dataGridViewEspecificaciones.Rows.Count - 1].Cells[5].Value = false;
 
-            fue_modificado = false;
+            eliminacionesPendientes = new List<int>();
 
             this.fechaInicial = Fecha.convertirDateTimeAFecha(fechaInicial);
+            this.fechaFinal = Fecha.convertirDateTimeAFecha(fechaFinal);
             fechas = new List<Fecha>();
             reCalcularFechas();
+
+            repintarCeldas();
+            fue_modificado = false;
+
+        }
+
+        public void recalcularNumeroEspecificacion()
+        {
+
+
+            for (int i = 0; i < dataGridViewEspecificaciones.Rows.Count; i++)
+            {
+                
+                this.dataGridViewEspecificaciones.Rows[i].Cells[0].Value = i+1;
+
+            }
         }
 
 
@@ -144,12 +180,18 @@ namespace ParetoKin.vista.modulotareas
 
                 this.Close();
                 this.fue_modificado = false;
-                padre.Show();
+                if(padre != null)
+                    padre.Show();
+                else
+                    padre2.Show();
             }
             else
             {
                 this.Close();
-                padre.Show();
+                if (padre != null)
+                    padre.Show();
+                else
+                    padre2.Show();
             }
 
         }
@@ -157,14 +199,18 @@ namespace ParetoKin.vista.modulotareas
 
         private void nuevaFila(object sender, DataGridViewRowEventArgs e)
         {
-            int valor_anterior = Convert.ToInt32(this.dataGridViewEspecificaciones.Rows[dataGridViewEspecificaciones.Rows.Count - 2].Cells[0].Value.ToString());
+            if (dataGridViewEspecificaciones.Rows.Count > 1)
+            {
+                int valor_anterior = Convert.ToInt32(dataGridViewEspecificaciones.Rows[dataGridViewEspecificaciones.Rows.Count - 2].Cells[0].Value);
 
-            this.dataGridViewEspecificaciones.Rows[dataGridViewEspecificaciones.Rows.Count - 1].Cells[0].Value = valor_anterior + 1;
-            this.dataGridViewEspecificaciones.Rows[dataGridViewEspecificaciones.Rows.Count - 1].Cells[4].Value = "1";
-            this.dataGridViewEspecificaciones.Rows[dataGridViewEspecificaciones.Rows.Count - 1].Cells[5].Value = false;
+                this.dataGridViewEspecificaciones.Rows[dataGridViewEspecificaciones.Rows.Count - 1].Cells[0].Value = valor_anterior + 1;
+                this.dataGridViewEspecificaciones.Rows[dataGridViewEspecificaciones.Rows.Count - 1].Cells[4].Value = "1";
+                this.dataGridViewEspecificaciones.Rows[dataGridViewEspecificaciones.Rows.Count - 1].Cells[5].Value = false;
 
+            }
 
             this.reCalcularFechas();
+            repintarCeldas();
         }
 
         private void filaEditada(object sender, DataGridViewCellEventArgs e)
@@ -223,10 +269,39 @@ namespace ParetoKin.vista.modulotareas
         public void guardarCambios()
         {
             this.fue_modificado = false;
+            
+            if (hay_eliminacion)
+            {
+                eliminarPendientes();
+            }
+
             actualizarCrearEspecificaciones();
 
-            MessageBox.Show("Cambios guardados exitosamente");
+
+            this.hay_eliminacion = false;
+            MessageBox.Show(Program.str.diccionario["msgCambiosGuardadosExitosamente"]);
         }
+
+        public void eliminarPendientes()
+        {
+            using (var conn = new SqlConnection(Program.CONECCION_STRING))
+            {
+
+
+                for (int i = 0; i < eliminacionesPendientes.Count; i++)
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("eliminarEspecificacion", conn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@id", eliminacionesPendientes[i]));
+
+                    cmd.ExecuteReader();
+                    conn.Close();
+                }
+            }
+            eliminacionesPendientes.Clear();
+        }
+
 
 
         private void reCalcularFechas()
@@ -243,6 +318,9 @@ namespace ParetoKin.vista.modulotareas
                 {
                     //MessageBox.Show(""+dataGridViewEspecificaciones.Rows[i].Cells[4].Value);
                     fechas.Add(fechaDinamica);
+
+                    if ("" + dataGridViewEspecificaciones.Rows[i].Cells[4].Value == "")
+                        dataGridViewEspecificaciones.Rows[i].Cells[4].Value = "1";
 
                     int dias = Convert.ToInt32(""+dataGridViewEspecificaciones.Rows[i].Cells[4].Value);
                     dataGridViewEspecificaciones.Rows[i].Cells[2].Value = fechaDinamica.Dia + " " + Program.str.diccionario["de"] + " " + Fecha.convertirNumeroAMes(fechaDinamica.Mes);
@@ -265,13 +343,56 @@ namespace ParetoKin.vista.modulotareas
 
         private void celdaClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            id_especificacion = Convert.ToInt32(dataGridViewEspecificaciones.Rows[dataGridViewEspecificaciones.CurrentRow.Index].Cells[6].Value);
             this.reCalcularFechas();
+
+            Console.WriteLine(""+ id_especificacion);
         }
 
-        private void PictureBox1_Click(object sender, EventArgs e)
+        private void filaEliminada(object sender, DataGridViewRowsRemovedEventArgs e)
         {
-            this.reCalcularFechas();
+            recalcularNumeroEspecificacion();
+            repintarCeldas();
+
+            if (id_especificacion > 0)
+            {
+                this.fue_modificado = true;
+                this.hay_eliminacion = true;
+                eliminacionesPendientes.Add(id_especificacion);
+            }
+            
+            
         }
+
+        private void repintarCeldas()
+        {
+
+            for (int i = 0; i < dataGridViewEspecificaciones.Rows.Count; i++)
+            {
+                pintarCeldas(i);
+            }
+        }
+
+        public void pintarCeldas(int indice)
+        {
+            if (indice % 2 == 0)
+            {
+
+                for (int j = 0; j < dataGridViewEspecificaciones.Columns.Count - 1; j++)
+                {
+                    dataGridViewEspecificaciones.Rows[indice].Cells[j].Style.BackColor = colorPreferidoEspecificaciones;
+                }
+
+            }
+            else
+            {
+
+                for (int j = 0; j < dataGridViewEspecificaciones.Columns.Count - 1; j++)
+                {
+                    dataGridViewEspecificaciones.Rows[indice].Cells[j].Style.BackColor = colorSecundarioEspecificaciones;
+                }
+            }
+        }
+
     }
 }

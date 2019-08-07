@@ -235,6 +235,64 @@ namespace ParetoKin.modelo
         }
 
 
+        public Fecha retrocederFecha(int dias)
+        {
+            
+            int copia_dias = dias;
+            Fecha nuevaFecha = new Fecha(this.dia, this.mes, this.anio);
+
+
+            
+            while (copia_dias >= 365)
+            {
+                int dias_anio = esAnioBisiesto(nuevaFecha.anio) ? 366 : 365;
+
+                copia_dias -= dias_anio;
+
+                nuevaFecha.anio -= 1;
+
+            }
+            //el año aun no ha sido igualado del todo, hace falta revisar si el dia actual es mayor o menor
+
+
+            int dia_neto_actual = this.obtenerDiaNetoEnElAnio();
+
+
+
+            if (copia_dias >= dia_neto_actual)
+            {
+                
+                copia_dias -= dia_neto_actual;
+
+                nuevaFecha.anio -= 1;
+                nuevaFecha.mes = 12;
+                nuevaFecha.dia = 31;
+
+            }
+
+
+            for (int i = nuevaFecha.mes; ; i--)
+            {
+                int dias_mes = obtenerDiasMes(i, nuevaFecha.anio);
+
+                if (copia_dias < dias_mes)
+                {
+                    break;
+                }
+
+                nuevaFecha.mes -= 1;
+
+                copia_dias -= dias_mes;
+            }
+
+
+            nuevaFecha.dia -= copia_dias;
+
+            return nuevaFecha;
+
+        }
+
+
         public static Fecha convertirDateTimeAFecha(string dateTime)
         {
             string[] fecha_split = dateTime.Split(' ')[0].Split('/'); //mm-dd-yy
@@ -242,6 +300,12 @@ namespace ParetoKin.modelo
               
         }
 
+        public static Fecha convertirDateTimeMMDDYYAFecha(string dateTime)
+        {
+            string[] fecha_split = dateTime.Split(' ')[0].Split('/'); //mm-dd-yy
+            return new Fecha(Convert.ToInt32(fecha_split[1]), Convert.ToInt32(fecha_split[0]), Convert.ToInt32(fecha_split[2]));
+
+        }
         public static string convertirNumeroAMes(int mes)
         {
             switch (mes)
@@ -273,6 +337,12 @@ namespace ParetoKin.modelo
                 default:
                     return "";
             }
+        }
+
+
+        public string ToStringReves()
+        {
+            return this.anio + "-" + this.mes + "-" + this.dia;
         }
 
 
