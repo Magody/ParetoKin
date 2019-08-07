@@ -66,7 +66,8 @@ namespace ParetoKin.vista.modulotareas
 
                         tareas.Add(new Tarea(Convert.ToInt32(rdr["numero"].ToString()), rdr["nombre"].ToString(), rdr["descripcion"].ToString(),
                             Convert.ToBoolean(rdr["importante"].ToString().ToLower()),
-                            Convert.ToBoolean(rdr["urgente"].ToString().ToLower())
+                            Convert.ToBoolean(rdr["urgente"].ToString().ToLower()),
+                            Convert.ToDateTime(rdr["fechaInicio"].ToString())
                             ));
 
 
@@ -107,7 +108,8 @@ namespace ParetoKin.vista.modulotareas
 
                         tareas.Add(new Tarea(Convert.ToInt32(rdr["numero"].ToString()), rdr["nombre"].ToString(), rdr["descripcion"].ToString(),
                             Convert.ToBoolean(rdr["importante"].ToString().ToLower()),
-                            Convert.ToBoolean(rdr["urgente"].ToString().ToLower())
+                            Convert.ToBoolean(rdr["urgente"].ToString().ToLower()),
+                            Convert.ToDateTime(rdr["fechaInicio"].ToString())
                             ));
 
 
@@ -136,7 +138,7 @@ namespace ParetoKin.vista.modulotareas
                     cmd.CommandType = CommandType.StoredProcedure;
 
 
-                    string numero = ""+dataGridViewListaTareas.Rows[i].Cells[4].Value;
+                    string numero = ""+dataGridViewListaTareas.Rows[i].Cells[5].Value;
                     if (numero == "")
                     {
                         cmd.Parameters.Add(new SqlParameter("@numero", -1));
@@ -149,6 +151,8 @@ namespace ParetoKin.vista.modulotareas
                     cmd.Parameters.Add(new SqlParameter("@descripcion", "" + dataGridViewListaTareas.Rows[i].Cells[1].Value));
                     cmd.Parameters.Add(new SqlParameter("@importante", (Convert.ToBoolean(dataGridViewListaTareas.Rows[i].Cells[2].Value))? 1:0));
                     cmd.Parameters.Add(new SqlParameter("@urgente", (Convert.ToBoolean(dataGridViewListaTareas.Rows[i].Cells[3].Value))? 1:0));
+                    cmd.Parameters.Add(new SqlParameter("@fechaInicio", (Convert.ToBoolean(dataGridViewListaTareas.Rows[i].Cells[4].Value)) ? 1 : 0));
+
                     cmd.ExecuteReader();
                     conn.Close();
                 }
@@ -205,7 +209,7 @@ namespace ParetoKin.vista.modulotareas
             for (int i = 0; i < lista_tareas.Count; i++)
             {
 
-                dataGridViewListaTareas.Rows.Add(lista_tareas[i].Nombre, lista_tareas[i].Descripcion, lista_tareas[i].Importante, lista_tareas[i].Urgente, lista_tareas[i].Numero);
+                dataGridViewListaTareas.Rows.Add(lista_tareas[i].Nombre, lista_tareas[i].Descripcion, lista_tareas[i].Importante, lista_tareas[i].Urgente,  lista_tareas[i].FechaInicio, lista_tareas[i].Numero);
 
             }
         }
@@ -242,10 +246,10 @@ namespace ParetoKin.vista.modulotareas
         {
             if(e.RowIndex >= 0)
             {
-                numTarea = Convert.ToInt32(this.dataGridViewListaTareas.Rows[dataGridViewListaTareas.CurrentRow.Index].Cells[4].Value);
+                numTarea = Convert.ToInt32(this.dataGridViewListaTareas.Rows[dataGridViewListaTareas.CurrentRow.Index].Cells[5].Value);
 
                 this.Hide();
-                padre.form_generico = new TareaDetallada(this, numTarea) { TopLevel = false, FormBorderStyle = FormBorderStyle.None, Dock = DockStyle.Fill };
+                padre.form_generico = new TareaDetallada(this, numTarea, ""+ this.dataGridViewListaTareas.Rows[dataGridViewListaTareas.CurrentRow.Index].Cells[4].Value) { TopLevel = false, FormBorderStyle = FormBorderStyle.None, Dock = DockStyle.Fill };
                 padre.panelGenerico.Controls.Add(padre.form_generico);
                 padre.form_generico.Show();
             }
@@ -272,7 +276,7 @@ namespace ParetoKin.vista.modulotareas
         {
             if (e.RowIndex >= 0)
             {
-                this.numTarea = Convert.ToInt32(this.dataGridViewListaTareas.Rows[dataGridViewListaTareas.CurrentRow.Index].Cells[4].Value);
+                this.numTarea = Convert.ToInt32(this.dataGridViewListaTareas.Rows[dataGridViewListaTareas.CurrentRow.Index].Cells[5].Value);
 
             }
         }

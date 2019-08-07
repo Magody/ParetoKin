@@ -13,15 +13,20 @@ using System.Windows.Forms;
 namespace ParetoKin.vista.modulotareas
 {
 
-    
+
     public partial class TareaDetallada : Form
     {
         TareasMain padre;
         int numTarea;
         bool fue_modificado;
 
+        Fecha fechaInicial;
 
-        public TareaDetallada(TareasMain padre, int numTarea)
+        List<Fecha> fechas;
+
+        bool esta_recalculando;
+
+        public TareaDetallada(TareasMain padre, int numTarea, string fechaInicial)
         {
             InitializeComponent();
             this.padre = padre;
@@ -30,12 +35,26 @@ namespace ParetoKin.vista.modulotareas
             this.buttonCerrar.Text = Program.str.diccionario["buttonCerrar"];
             this.mostrarEspecificaciones();
 
-            int valor_anterior = Convert.ToInt32(dataGridViewEspecificaciones.Rows[dataGridViewEspecificaciones.Rows.Count - 2].Cells[0].Value);
-            
-            this.dataGridViewEspecificaciones.Rows[dataGridViewEspecificaciones.Rows.Count - 1].Cells[0].Value = valor_anterior + 1;
+            this.numeroEspecificacion.HeaderText = Program.str.diccionario["numeroEspecificacion"];
+            this.especificacion.HeaderText = Program.str.diccionario["especificacion"];
+            this.fechaInicio.HeaderText = Program.str.diccionario["fechaInicio"];
+            this.fechaFin.HeaderText = Program.str.diccionario["fechaFin"];
+            this.dias.HeaderText = Program.str.diccionario["dias"];
+            this.cumplido.HeaderText = Program.str.diccionario["cumplido"];
 
+
+
+            int valor_anterior = Convert.ToInt32(dataGridViewEspecificaciones.Rows[dataGridViewEspecificaciones.Rows.Count - 2].Cells[0].Value);
+
+            this.dataGridViewEspecificaciones.Rows[dataGridViewEspecificaciones.Rows.Count - 1].Cells[0].Value = valor_anterior + 1;
+            this.dataGridViewEspecificaciones.Rows[dataGridViewEspecificaciones.Rows.Count - 1].Cells[4].Value = "1";
+            this.dataGridViewEspecificaciones.Rows[dataGridViewEspecificaciones.Rows.Count - 1].Cells[5].Value = false;
 
             fue_modificado = false;
+
+            this.fechaInicial = Fecha.convertirDateTimeAFecha(fechaInicial);
+            fechas = new List<Fecha>();
+            reCalcularFechas();
         }
 
 
@@ -62,7 +81,7 @@ namespace ParetoKin.vista.modulotareas
                     // iterate through results, printing each to console
                     while (rdr.Read())
                     {
-                        
+
                         especificaciones.Add(new EspecificacionTarea(Convert.ToInt32(rdr["id"].ToString()),
                             Convert.ToInt32(rdr["numero"].ToString()),
                             rdr["especificacion"].ToString(),
@@ -70,7 +89,7 @@ namespace ParetoKin.vista.modulotareas
                             rdr["diaFin"].ToString(),
                             Convert.ToInt32(rdr["dias"].ToString()),
                             Convert.ToBoolean(rdr["cumplido"].ToString())
-                            )) ;
+                            ));
 
 
                         //Console.WriteLine("Product: {0,-35} Total: {1,2}", rdr["nombrePlato"], rdr["precioPlato"]);
@@ -92,14 +111,16 @@ namespace ParetoKin.vista.modulotareas
 
             for (int i = 0; i < lista_tareas.Count; i++)
             {
-
+                Fecha inicio = Fecha.convertirDateTimeAFecha(lista_tareas[i].DiaInicio);
+                Fecha fin = Fecha.convertirDateTimeAFecha(lista_tareas[i].DiaFin);
 
 
                 dataGridViewEspecificaciones.Rows.Add(lista_tareas[i].Numero, lista_tareas[i].Especificacion,
-                    lista_tareas[i].DiaInicio, lista_tareas[i].DiaFin
-                    , lista_tareas[i].Dias + "",lista_tareas[i].Cumplido,
+                    inicio.Dia + " " + Program.str.diccionario["de"] + " " + Fecha.convertirNumeroAMes(inicio.Mes),
+                    fin.Dia + " " + Program.str.diccionario["de"] + " " + Fecha.convertirNumeroAMes(fin.Mes),
+                    lista_tareas[i].Dias + "", lista_tareas[i].Cumplido,
                     lista_tareas[i].Id);
-                
+
             }
         }
 
@@ -117,10 +138,12 @@ namespace ParetoKin.vista.modulotareas
                 }
                 else if (dialogResult == DialogResult.Cancel)
                 {
+
                     return;
                 }
 
                 this.Close();
+                this.fue_modificado = false;
                 padre.Show();
             }
             else
@@ -128,22 +151,26 @@ namespace ParetoKin.vista.modulotareas
                 this.Close();
                 padre.Show();
             }
-            
+
         }
 
 
         private void nuevaFila(object sender, DataGridViewRowEventArgs e)
         {
             int valor_anterior = Convert.ToInt32(this.dataGridViewEspecificaciones.Rows[dataGridViewEspecificaciones.Rows.Count - 2].Cells[0].Value.ToString());
-            
-            this.dataGridViewEspecificaciones.Rows[dataGridViewEspecificaciones.Rows.Count - 1].Cells[0].Value = valor_anterior + 1;
 
+            this.dataGridViewEspecificaciones.Rows[dataGridViewEspecificaciones.Rows.Count - 1].Cells[0].Value = valor_anterior + 1;
+            this.dataGridViewEspecificaciones.Rows[dataGridViewEspecificaciones.Rows.Count - 1].Cells[4].Value = "1";
+            this.dataGridViewEspecificaciones.Rows[dataGridViewEspecificaciones.Rows.Count - 1].Cells[5].Value = false;
+
+
+            this.reCalcularFechas();
         }
 
         private void filaEditada(object sender, DataGridViewCellEventArgs e)
         {
             this.fue_modificado = true;
-
+            this.reCalcularFechas();
         }
 
         private void ButtonGuardarCambios_Click(object sender, EventArgs e)
@@ -157,7 +184,7 @@ namespace ParetoKin.vista.modulotareas
 
             using (var conn = new SqlConnection(Program.CONECCION_STRING))
             {
-                
+
 
 
                 for (int i = 0; i < dataGridViewEspecificaciones.Rows.Count - 1; i++)
@@ -179,10 +206,10 @@ namespace ParetoKin.vista.modulotareas
                     cmd.Parameters.Add(new SqlParameter("@numero", Convert.ToInt32(dataGridViewEspecificaciones.Rows[i].Cells[0].Value)));
                     cmd.Parameters.Add(new SqlParameter("@numeroTarea", numTarea));
                     cmd.Parameters.Add(new SqlParameter("@especificacion", "" + dataGridViewEspecificaciones.Rows[i].Cells[1].Value));
-                    cmd.Parameters.Add(new SqlParameter("@diaInicio", Convert.ToDateTime("" + dataGridViewEspecificaciones.Rows[i].Cells[2].Value)));
-                    cmd.Parameters.Add(new SqlParameter("@diaFin", Convert.ToDateTime("" + dataGridViewEspecificaciones.Rows[i].Cells[3].Value)));
+                    cmd.Parameters.Add(new SqlParameter("@diaInicio", Convert.ToDateTime(fechas[i*2].ToString())));
+                    cmd.Parameters.Add(new SqlParameter("@diaFin", Convert.ToDateTime(fechas[i*2+1].ToString())));
                     cmd.Parameters.Add(new SqlParameter("@dias", Convert.ToInt32("" + dataGridViewEspecificaciones.Rows[i].Cells[4].Value)));
-                    cmd.Parameters.Add(new SqlParameter("@cumplido", (Convert.ToBoolean(""+dataGridViewEspecificaciones.Rows[i].Cells[5].Value)) ? 1 : 0));
+                    cmd.Parameters.Add(new SqlParameter("@cumplido", (Convert.ToBoolean("" + dataGridViewEspecificaciones.Rows[i].Cells[5].Value)) ? 1 : 0));
 
 
                     cmd.ExecuteReader();
@@ -199,6 +226,52 @@ namespace ParetoKin.vista.modulotareas
             actualizarCrearEspecificaciones();
 
             MessageBox.Show("Cambios guardados exitosamente");
+        }
+
+
+        private void reCalcularFechas()
+        {
+
+            if(fechaInicial != null && !esta_recalculando)
+            {
+                esta_recalculando = true;
+                fechas.Clear();
+                Fecha fechaDinamica = new Fecha(fechaInicial.Dia, fechaInicial.Mes, fechaInicial.Anio);
+
+
+                for (int i = 0; i < dataGridViewEspecificaciones.Rows.Count - 1; i++)
+                {
+                    //MessageBox.Show(""+dataGridViewEspecificaciones.Rows[i].Cells[4].Value);
+                    fechas.Add(fechaDinamica);
+
+                    int dias = Convert.ToInt32(""+dataGridViewEspecificaciones.Rows[i].Cells[4].Value);
+                    dataGridViewEspecificaciones.Rows[i].Cells[2].Value = fechaDinamica.Dia + " " + Program.str.diccionario["de"] + " " + Fecha.convertirNumeroAMes(fechaDinamica.Mes);
+                    fechaDinamica = fechaDinamica.adelantarFecha(dias);
+                    dataGridViewEspecificaciones.Rows[i].Cells[3].Value = fechaDinamica.Dia + " " + Program.str.diccionario["de"] + " " + Fecha.convertirNumeroAMes(fechaDinamica.Mes);
+
+                    fechas.Add(fechaDinamica);
+                }
+                //Console.WriteLine("+");
+                /*
+                foreach (var item in fechas)
+                {
+                    Console.WriteLine(item.ToString());
+                }*/
+                esta_recalculando = false;
+            }
+            
+
+        }
+
+        private void celdaClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+            this.reCalcularFechas();
+        }
+
+        private void PictureBox1_Click(object sender, EventArgs e)
+        {
+            this.reCalcularFechas();
         }
     }
 }

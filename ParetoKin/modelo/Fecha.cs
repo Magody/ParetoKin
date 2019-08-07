@@ -234,6 +234,48 @@ namespace ParetoKin.modelo
 
         }
 
+
+        public static Fecha convertirDateTimeAFecha(string dateTime)
+        {
+            string[] fecha_split = dateTime.Split(' ')[0].Split('/'); //mm-dd-yy
+            return new Fecha(Convert.ToInt32(fecha_split[0]), Convert.ToInt32(fecha_split[1]), Convert.ToInt32(fecha_split[2]));
+              
+        }
+
+        public static string convertirNumeroAMes(int mes)
+        {
+            switch (mes)
+            {
+                case 1:
+                    return Program.str.diccionario["Enero"];
+                case 2:
+                    return Program.str.diccionario["Febrero"];
+                case 3:
+                    return Program.str.diccionario["Marzo"];
+                case 4:
+                    return Program.str.diccionario["Abril"];
+                case 5:
+                    return Program.str.diccionario["Mayo"];
+                case 6:
+                    return Program.str.diccionario["Junio"];
+                case 7:
+                    return Program.str.diccionario["Julio"];
+                case 8:
+                    return Program.str.diccionario["Agosto"];
+                case 9:
+                    return Program.str.diccionario["Septiembre"];
+                case 10:
+                    return Program.str.diccionario["Octubre"];
+                case 11:
+                    return Program.str.diccionario["Noviembre"];
+                case 12:
+                    return Program.str.diccionario["Diciembre"];
+                default:
+                    return "";
+            }
+        }
+
+
         override
         public string ToString()
         {

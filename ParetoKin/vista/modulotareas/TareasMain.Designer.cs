@@ -29,15 +29,16 @@
         private void InitializeComponent()
         {
             this.dataGridViewListaTareas = new System.Windows.Forms.DataGridView();
-            this.nombreTarea = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descripcionTarea = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.importanciaTarea = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.urgenciaTarea = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.numeroTarea = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.labelFiltrarPorNombre = new System.Windows.Forms.Label();
             this.textBoxNombre = new System.Windows.Forms.TextBox();
             this.buttonCerrar = new System.Windows.Forms.Button();
             this.buttonGuardarCambios = new System.Windows.Forms.Button();
+            this.nombreTarea = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descripcionTarea = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.importanciaTarea = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.urgenciaTarea = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.fechaInicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.numeroTarea = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewListaTareas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -50,51 +51,16 @@
             this.descripcionTarea,
             this.importanciaTarea,
             this.urgenciaTarea,
+            this.fechaInicio,
             this.numeroTarea});
-            this.dataGridViewListaTareas.Location = new System.Drawing.Point(12, 38);
+            this.dataGridViewListaTareas.Location = new System.Drawing.Point(2, 38);
             this.dataGridViewListaTareas.Name = "dataGridViewListaTareas";
-            this.dataGridViewListaTareas.Size = new System.Drawing.Size(760, 312);
+            this.dataGridViewListaTareas.Size = new System.Drawing.Size(783, 312);
             this.dataGridViewListaTareas.TabIndex = 0;
             this.dataGridViewListaTareas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.celdaClick);
             this.dataGridViewListaTareas.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.visualizarTareaDetalles);
             this.dataGridViewListaTareas.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.celdaEditada);
             this.dataGridViewListaTareas.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.filaEliminada);
-            // 
-            // nombreTarea
-            // 
-            this.nombreTarea.HeaderText = "Nombre";
-            this.nombreTarea.Name = "nombreTarea";
-            this.nombreTarea.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.nombreTarea.Width = 255;
-            // 
-            // descripcionTarea
-            // 
-            this.descripcionTarea.HeaderText = "Descripción";
-            this.descripcionTarea.Name = "descripcionTarea";
-            this.descripcionTarea.Width = 300;
-            // 
-            // importanciaTarea
-            // 
-            this.importanciaTarea.HeaderText = "Importante";
-            this.importanciaTarea.Name = "importanciaTarea";
-            this.importanciaTarea.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.importanciaTarea.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.importanciaTarea.Width = 80;
-            // 
-            // urgenciaTarea
-            // 
-            this.urgenciaTarea.HeaderText = "Urgencia";
-            this.urgenciaTarea.Name = "urgenciaTarea";
-            this.urgenciaTarea.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.urgenciaTarea.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.urgenciaTarea.Width = 80;
-            // 
-            // numeroTarea
-            // 
-            this.numeroTarea.HeaderText = "Numero";
-            this.numeroTarea.Name = "numeroTarea";
-            this.numeroTarea.ReadOnly = true;
-            this.numeroTarea.Visible = false;
             // 
             // labelFiltrarPorNombre
             // 
@@ -135,6 +101,47 @@
             this.buttonGuardarCambios.UseVisualStyleBackColor = true;
             this.buttonGuardarCambios.Click += new System.EventHandler(this.ButtonGuardarCambios_Click);
             // 
+            // nombreTarea
+            // 
+            this.nombreTarea.HeaderText = "Nombre";
+            this.nombreTarea.Name = "nombreTarea";
+            this.nombreTarea.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.nombreTarea.Width = 200;
+            // 
+            // descripcionTarea
+            // 
+            this.descripcionTarea.HeaderText = "Descripción";
+            this.descripcionTarea.Name = "descripcionTarea";
+            this.descripcionTarea.Width = 300;
+            // 
+            // importanciaTarea
+            // 
+            this.importanciaTarea.HeaderText = "Importante";
+            this.importanciaTarea.Name = "importanciaTarea";
+            this.importanciaTarea.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.importanciaTarea.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.importanciaTarea.Width = 70;
+            // 
+            // urgenciaTarea
+            // 
+            this.urgenciaTarea.HeaderText = "Urgencia";
+            this.urgenciaTarea.Name = "urgenciaTarea";
+            this.urgenciaTarea.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.urgenciaTarea.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.urgenciaTarea.Width = 70;
+            // 
+            // fechaInicio
+            // 
+            this.fechaInicio.HeaderText = "FechaInicio";
+            this.fechaInicio.Name = "fechaInicio";
+            // 
+            // numeroTarea
+            // 
+            this.numeroTarea.HeaderText = "Numero";
+            this.numeroTarea.Name = "numeroTarea";
+            this.numeroTarea.ReadOnly = true;
+            this.numeroTarea.Visible = false;
+            // 
             // TareasMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -164,6 +171,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn descripcionTarea;
         private System.Windows.Forms.DataGridViewCheckBoxColumn importanciaTarea;
         private System.Windows.Forms.DataGridViewCheckBoxColumn urgenciaTarea;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fechaInicio;
         private System.Windows.Forms.DataGridViewTextBoxColumn numeroTarea;
     }
 }
