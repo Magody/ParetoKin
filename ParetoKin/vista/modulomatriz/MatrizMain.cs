@@ -217,6 +217,8 @@ namespace ParetoKin.vista.modulomatriz
         private void ButtonCerrar_Click(object sender, EventArgs e)
         {
             this.Close();
+
+            padre.mostrarInicio();
         }
 
         private void visualizarDetalleIyU(object sender, DataGridViewCellEventArgs e)

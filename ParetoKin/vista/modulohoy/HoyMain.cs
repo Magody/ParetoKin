@@ -88,7 +88,7 @@ namespace ParetoKin.vista.modulohoy
                 DateTime hoy = DateTime.Now;
                 Fecha fecha_hoy = new Fecha(hoy.Day, hoy.Month, hoy.Year);
 
-                cmd.Parameters.Add(new SqlParameter("@fechaHoy", fecha_hoy.ToStringReves()));
+                cmd.Parameters.Add(new SqlParameter("@fechaHoy", fecha_hoy.ToStringMMDDYYYY()));
                 
 
                 // execute the command
@@ -165,6 +165,8 @@ namespace ParetoKin.vista.modulohoy
         {
             dataGridViewListaTareas.Rows.Clear();
             this.Close();
+
+            padre.mostrarInicio();
         }
     }
 }

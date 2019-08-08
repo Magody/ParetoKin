@@ -13,3 +13,4 @@ C:\Users\COMPANY\source\repos\ParetoKin\ParetoKin\obj\Debug\ParetoKin.VistaPrinc
 C:\Users\COMPANY\source\repos\ParetoKin\ParetoKin\obj\Debug\ParetoKin.vista.modulohorarios.HorariosMain.resources
 C:\Users\COMPANY\source\repos\ParetoKin\ParetoKin\obj\Debug\ParetoKin.vista.modulomatriz.MatrizMain.resources
 C:\Users\COMPANY\source\repos\ParetoKin\ParetoKin\obj\Debug\ParetoKin.vista.modulohoy.HoyMain.resources
+C:\Users\COMPANY\source\repos\ParetoKin\ParetoKin\obj\Debug\ParetoKin.vista.Loggin.resources

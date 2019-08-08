@@ -16,14 +16,15 @@ namespace ParetoKin.modelo.idioma
             diccionarioES = new Dictionary<string, string>();
             // Botones
             diccionarioES.Add("buttonSalir", "Salir");
+            diccionarioES.Add("buttonIngresar", "Ingresar");
             diccionarioES.Add("buttonCerrar", "Cerrar");
+            diccionarioES.Add("buttonCerrarSesion", "Cerrar sesión");
             diccionarioES.Add("buttonTareas", "Tareas");
             diccionarioES.Add("buttonGuardarCambios", "Guardar cambios");
             diccionarioES.Add("buttonCancelar", "Cancelar");
             diccionarioES.Add("buttonHorarios", "Horarios");
             diccionarioES.Add("buttonMatriz", "Matriz de prioridades");
 
-            
 
 
             // Etiquetas
@@ -32,9 +33,12 @@ namespace ParetoKin.modelo.idioma
             diccionarioES.Add("labelNoImportante", "No importante");
             diccionarioES.Add("labelUrgente", "Urgente");
             diccionarioES.Add("labelNoUrgente", "No urgente");
+            diccionarioES.Add("labelUser", "Usuario");
+            diccionarioES.Add("labelPassword", "Contraseña");
+            diccionarioES.Add("labelAprender", "Aprender");
+            diccionarioES.Add("labelPracticar", "Practicar");
+            diccionarioES.Add("labelAplicar", "Aplicar");
 
-
-            
 
             // headers Text
             diccionarioES.Add("nombreTarea", "Nombre de la tarea");
@@ -73,6 +77,17 @@ namespace ParetoKin.modelo.idioma
             diccionarioES.Add("msgCambiosGuardadosExitosamente", "Cambios guardados exitosamente");
             diccionarioES.Add("msgLosMinutosDebenSerMayoresA0", "¡Los minutos deben ser mayores a 0!");
             diccionarioES.Add("msgFechaSinElFormatoValido", "Las fechas deben tener el formato dd/mm/aaaa hh:mm:ss(opcional)\nEjemplo: para el 4 de Mayo de 1990 en el medio día\n04/05/1990 12:00:00\nO también, 04/05/1990");
+            diccionarioES.Add("msgContraseniaIncorrecta", "Contraseña incorrecta");
+            diccionarioES.Add("msgUsuarioIncorrecto", "El usuario no existe");
+            diccionarioES.Add("msgUsuarioBloqueado", "Ha ingresado demasiadas veces la contraseña");
+
+            diccionarioES.Add("msgGuardarContinuar", "¿Desea guardar los cambios realizados antes de continuar?");
+            diccionarioES.Add("msgGuardarObligatorio", "Para continuar debe guardar los cambios. \n¿Desea Guardar cambios?");
+
+            diccionarioES.Add("msgEliminacionTareas", "Algunas tareas se van a eliminar, ¿Esta seguro de eliminarlas?");
+            diccionarioES.Add("tituloEliminarTarea", "Tareas a eliminarse");
+
+
 
 
             // tooltips

@@ -59,6 +59,11 @@ namespace ParetoKin.vista.modulotareas
             if(dataGridViewEspecificaciones.Rows.Count > 1)
             {
                 recalcularNumeroEspecificacion();
+
+                
+                this.dataGridViewEspecificaciones.Rows[dataGridViewEspecificaciones.Rows.Count - 1].Cells[4].Value = "1";
+                this.dataGridViewEspecificaciones.Rows[dataGridViewEspecificaciones.Rows.Count - 1].Cells[5].Value = false;
+
             }
             else
             {

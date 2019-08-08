@@ -114,13 +114,12 @@ namespace ParetoKin.vista.modulohorarios
                     return;
                 }
 
-                this.Close();
+                
 
             }
-            else
-            {
-                this.Close();
-            }
+            this.Close();
+
+            padre.mostrarInicio();
         }
 
         private void ButtonGuardarCambios_Click(object sender, EventArgs e)

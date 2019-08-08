@@ -62,8 +62,8 @@
             this.dataGridViewListaTareas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.celdaClick);
             this.dataGridViewListaTareas.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.visualizarTareaDetalles);
             this.dataGridViewListaTareas.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.celdaEditada);
-            this.dataGridViewListaTareas.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.filaEliminada);
             this.dataGridViewListaTareas.UserAddedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.nuevaFila);
+            this.dataGridViewListaTareas.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.filaEliminada);
             // 
             // labelFiltrarPorNombre
             // 

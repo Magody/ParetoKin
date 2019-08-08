@@ -214,11 +214,20 @@ namespace ParetoKin.vista.modulotareas
 
             if (hay_eliminacion)
             {
-                eliminarPendientes();
+                DialogResult dialogResult = MessageBox.Show(Program.str.diccionario["msgEliminacionTareas"],
+                        Program.str.diccionario["tituloEliminarTarea"], MessageBoxButtons.YesNoCancel);
+
+                if (dialogResult == DialogResult.Yes)
+                {
+                    eliminarPendientes();
+                }
+
+
+                this.hay_eliminacion = false;
+
             }
 
 
-            this.hay_eliminacion = false;
             MessageBox.Show(Program.str.diccionario["msgCambiosGuardadosExitosamente"]);
         }
 
@@ -234,7 +243,7 @@ namespace ParetoKin.vista.modulotareas
 
             for (int i = 0; i < lista_tareas.Count; i++)
             {
-
+                //Console.WriteLine(lista_tareas[i].Nombre);
                 dataGridViewListaTareas.Rows.Add(lista_tareas[i].Nombre, lista_tareas[i].Descripcion, lista_tareas[i].Importante, lista_tareas[i].Urgente,  lista_tareas[i].FechaInicio, lista_tareas[i].FechaFin, lista_tareas[i].Numero);
                 pintarCeldas(i);
             }
@@ -286,13 +295,10 @@ namespace ParetoKin.vista.modulotareas
                     return;
                 }
 
-                this.Close();
 
             }
-            else
-            {
-                this.Close();
-            }
+            this.Close();
+            padre.mostrarInicio();
         }
        
 
@@ -301,6 +307,55 @@ namespace ParetoKin.vista.modulotareas
         {
             if(e.RowIndex >= 0)
             {
+                int indice = dataGridViewListaTareas.CurrentRow.Index;
+                if (fue_modificado)
+                {
+
+                    if(this.dataGridViewListaTareas.Rows[indice].Cells[6].Value+"" == "")
+                    {
+                        //La nueva fila quiere abrir
+                       
+                        DialogResult dialogResult = MessageBox.Show(Program.str.diccionario["msgGuardarObligatorio"],
+                        Program.str.diccionario["tituloCambiosRealizados"], MessageBoxButtons.YesNoCancel);
+
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            guardarCambios();
+                            mostrarTareas(false);
+                        }
+                        else if (dialogResult == DialogResult.Cancel)
+                        {
+                            return;
+                        }
+                        else if (dialogResult == DialogResult.No)
+                        {
+                            return;
+                        }
+
+                    }
+                    else
+                    {
+                        //es otra fila la que cambió
+
+                        DialogResult dialogResult = MessageBox.Show(Program.str.diccionario["msgGuardarContinuar"],
+                            Program.str.diccionario["tituloCambiosRealizados"], MessageBoxButtons.YesNoCancel);
+
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            guardarCambios();
+                            mostrarTareas(false);
+                        }
+                        else if (dialogResult == DialogResult.Cancel)
+                        {
+                            return;
+                        }
+                        //si le da que no, se mantiene todo en estado anterior y se analiza con el anterior
+                    }
+                    
+
+                }
+
+
 
                 try
                 {
@@ -315,8 +370,8 @@ namespace ParetoKin.vista.modulotareas
                     return;
                 }
 
-                numTarea = Convert.ToInt32(this.dataGridViewListaTareas.Rows[dataGridViewListaTareas.CurrentRow.Index].Cells[6].Value);
-
+                numTarea = Convert.ToInt32(this.dataGridViewListaTareas.Rows[indice].Cells[6].Value);
+                
                 this.Hide();
 
                 padre.form_generico = new TareaDetallada(this,null, numTarea, ""+ this.dataGridViewListaTareas.Rows[dataGridViewListaTareas.CurrentRow.Index].Cells[4].Value, "" + this.dataGridViewListaTareas.Rows[dataGridViewListaTareas.CurrentRow.Index].Cells[5].Value) { TopLevel = false, FormBorderStyle = FormBorderStyle.None, Dock = DockStyle.Fill };
@@ -335,6 +390,7 @@ namespace ParetoKin.vista.modulotareas
         private void ButtonGuardarCambios_Click(object sender, EventArgs e)
         {
             guardarCambios();
+            mostrarTareas(false);
         }
 
         private void busquedaTareas(object sender, KeyEventArgs e)
@@ -351,17 +407,6 @@ namespace ParetoKin.vista.modulotareas
             }
         }
 
-        private void filaEliminada(object sender, DataGridViewRowsRemovedEventArgs e)
-        {
-            if(numTarea > 0)
-            {
-                this.fue_modificado = true;
-                this.hay_eliminacion = true;
-                tareasPendientes.Add(numTarea);
-                repintarCeldas();
-            }
-            
-        }
 
         private void nuevaFila(object sender, DataGridViewRowEventArgs e)
         {
@@ -375,6 +420,17 @@ namespace ParetoKin.vista.modulotareas
                 fechaManana.Dia + "/" + fechaManana.Mes + "/" + fechaManana.Anio + " " + dateTime.Hour + ":" + dateTime.Minute + ":" + dateTime.Second;
 
             repintarCeldas();
+        }
+
+        private void filaEliminada(object sender, DataGridViewRowEventArgs e)
+        {
+            if (numTarea > 0)
+            {
+                this.fue_modificado = true;
+                this.hay_eliminacion = true;
+                tareasPendientes.Add(numTarea);
+                repintarCeldas();
+            }
         }
     }
 }

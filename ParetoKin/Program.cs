@@ -1,7 +1,9 @@
 ﻿using ParetoKin.modelo;
 using ParetoKin.modelo.idioma;
+using ParetoKin.vista;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
@@ -31,8 +33,11 @@ namespace ParetoKin
             
 
 
+
+
             str = new StringMain(StringMain.IDIOMA_ESPANOL);
-            Application.Run(new VistaPrincipal());
+            //Application.Run(new Loggin());
+            Application.Run(new VistaPrincipal(new Loggin()));
         }
     }
 }

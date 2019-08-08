@@ -1,4 +1,5 @@
-﻿using ParetoKin.vista.modulohorarios;
+﻿using ParetoKin.vista;
+using ParetoKin.vista.modulohorarios;
 using ParetoKin.vista.modulohoy;
 using ParetoKin.vista.modulomatriz;
 using ParetoKin.vista.modulotareas;
@@ -19,15 +20,24 @@ namespace ParetoKin
     {
         public Form form_generico;
         public bool aplicacionAbierta;
-        public VistaPrincipal()
+        Loggin padre;
+        public VistaPrincipal(Loggin padre)
         {
             InitializeComponent();
+
+            this.padre = padre;
             this.buttonSalir.Text = Program.str.diccionario["buttonSalir"];
+            this.buttonCerrarSesion.Text = Program.str.diccionario["buttonCerrarSesion"];
+
+            
             this.buttonTareas.Text = Program.str.diccionario["buttonTareas"];
             this.buttonHorarios.Text = Program.str.diccionario["buttonHorarios"];
             this.buttonHoy.Text = Program.str.diccionario["Hoy"];
             this.buttonMatriz.Text = Program.str.diccionario["buttonMatriz"];
 
+            this.labelAprender.Text = Program.str.diccionario["labelAprender"];
+            this.labelPracticar.Text = Program.str.diccionario["labelPracticar"];
+            this.labelAplicar.Text = Program.str.diccionario["labelAplicar"];
 
             DateTime src = DateTime.Now;
 
@@ -136,6 +146,7 @@ namespace ParetoKin
 
         private void ButtonTareas_Click(object sender, EventArgs e)
         {
+            ocultarInicio();
             form_generico?.Close();
             form_generico = new TareasMain(this) { TopLevel = false, FormBorderStyle = FormBorderStyle.None, Dock = DockStyle.Fill };
             panelGenerico.Controls.Add(form_generico);
@@ -145,6 +156,7 @@ namespace ParetoKin
 
         private void ButtonHorarios_Click(object sender, EventArgs e)
         {
+            ocultarInicio();
             form_generico?.Close();
             form_generico = new HorariosMain(this) { TopLevel = false, FormBorderStyle = FormBorderStyle.None, Dock = DockStyle.Fill };
             panelGenerico.Controls.Add(form_generico);
@@ -153,6 +165,7 @@ namespace ParetoKin
 
         private void ButtonMatriz_Click(object sender, EventArgs e)
         {
+            ocultarInicio();
             form_generico?.Close();
             form_generico = new MatrizMain(this) { TopLevel = false, FormBorderStyle = FormBorderStyle.None, Dock = DockStyle.Fill };
             panelGenerico.Controls.Add(form_generico);
@@ -166,10 +179,44 @@ namespace ParetoKin
 
         private void ButtonHoy_Click(object sender, EventArgs e)
         {
+            ocultarInicio();
             form_generico?.Close();
             form_generico = new HoyMain(this) { TopLevel = false, FormBorderStyle = FormBorderStyle.None, Dock = DockStyle.Fill };
             panelGenerico.Controls.Add(form_generico);
             form_generico.Show();
+        }
+
+        public void ocultarInicio()
+        {
+            this.labelSystema.Visible = false;
+            this.pictureBoxLogoSystema.Visible = false;
+
+            this.labelAplicar.Visible = false;
+            this.labelAprender.Visible = false;
+            this.labelPracticar.Visible = false;
+            this.labelMagia.Visible = false;
+            this.labelSuNombre.Visible = false;
+            this.labelAyudar.Visible = false;
+        }
+
+        public void mostrarInicio()
+        {
+            this.labelSystema.Visible = true;
+            this.pictureBoxLogoSystema.Visible = true;
+
+            this.labelAplicar.Visible = true;
+            this.labelAprender.Visible = true;
+            this.labelPracticar.Visible = true;
+            this.labelMagia.Visible = true;
+            this.labelSuNombre.Visible = true;
+            this.labelAyudar.Visible = true;
+        }
+
+
+        private void ButtonCerrarSesion_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            padre.Show();
         }
     }
 }

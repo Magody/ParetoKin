@@ -340,6 +340,12 @@ namespace ParetoKin.modelo
         }
 
 
+        public string ToStringMMDDYYYY()
+        {
+            return this.mes + "-" + this.dia + "-" + this.anio;
+        }
+
+
         public string ToStringReves()
         {
             return this.anio + "-" + this.mes + "-" + this.dia;
