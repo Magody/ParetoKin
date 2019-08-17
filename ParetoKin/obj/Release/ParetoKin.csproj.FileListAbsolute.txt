@@ -1,0 +1,16 @@
+C:\Users\COMPANY\source\repos\ParetoKin\ParetoKin\bin\Release\ParetoKin.exe.config
+C:\Users\COMPANY\source\repos\ParetoKin\ParetoKin\bin\Release\ParetoKin.exe
+C:\Users\COMPANY\source\repos\ParetoKin\ParetoKin\bin\Release\ParetoKin.pdb
+C:\Users\COMPANY\source\repos\ParetoKin\ParetoKin\obj\Release\ParetoKin.csprojAssemblyReference.cache
+C:\Users\COMPANY\source\repos\ParetoKin\ParetoKin\obj\Release\ParetoKin.vista.Loggin.resources
+C:\Users\COMPANY\source\repos\ParetoKin\ParetoKin\obj\Release\ParetoKin.vista.modulohorarios.HorariosMain.resources
+C:\Users\COMPANY\source\repos\ParetoKin\ParetoKin\obj\Release\ParetoKin.vista.modulohoy.HoyMain.resources
+C:\Users\COMPANY\source\repos\ParetoKin\ParetoKin\obj\Release\ParetoKin.vista.modulomatriz.MatrizMain.resources
+C:\Users\COMPANY\source\repos\ParetoKin\ParetoKin\obj\Release\ParetoKin.vista.modulotareas.TareaDetallada.resources
+C:\Users\COMPANY\source\repos\ParetoKin\ParetoKin\obj\Release\ParetoKin.vista.modulotareas.TareasMain.resources
+C:\Users\COMPANY\source\repos\ParetoKin\ParetoKin\obj\Release\ParetoKin.VistaPrincipal.resources
+C:\Users\COMPANY\source\repos\ParetoKin\ParetoKin\obj\Release\ParetoKin.Properties.Resources.resources
+C:\Users\COMPANY\source\repos\ParetoKin\ParetoKin\obj\Release\ParetoKin.csproj.GenerateResource.cache
+C:\Users\COMPANY\source\repos\ParetoKin\ParetoKin\obj\Release\ParetoKin.csproj.CoreCompileInputs.cache
+C:\Users\COMPANY\source\repos\ParetoKin\ParetoKin\obj\Release\ParetoKin.exe
+C:\Users\COMPANY\source\repos\ParetoKin\ParetoKin\obj\Release\ParetoKin.pdb

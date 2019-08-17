@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.buttonCerrar = new System.Windows.Forms.Button();
             this.dataGridViewEspecificaciones = new System.Windows.Forms.DataGridView();
             this.numeroEspecificacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -40,6 +40,7 @@
             this.cumplido = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.idEspecificacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonGuardarCambios = new System.Windows.Forms.Button();
+            this.labelAdvertencia = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEspecificaciones)).BeginInit();
             this.SuspendLayout();
             // 
@@ -76,8 +77,8 @@
             // 
             // numeroEspecificacion
             // 
-            dataGridViewCellStyle3.NullValue = "1";
-            this.numeroEspecificacion.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle7.NullValue = "1";
+            this.numeroEspecificacion.DefaultCellStyle = dataGridViewCellStyle7;
             this.numeroEspecificacion.HeaderText = "Número";
             this.numeroEspecificacion.Name = "numeroEspecificacion";
             this.numeroEspecificacion.ReadOnly = true;
@@ -104,8 +105,8 @@
             // dias
             // 
             this.dias.DataPropertyName = "dato";
-            dataGridViewCellStyle4.NullValue = "-1";
-            this.dias.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle8.NullValue = "-1";
+            this.dias.DefaultCellStyle = dataGridViewCellStyle8;
             this.dias.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
             this.dias.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.dias.HeaderText = "Días";
@@ -143,11 +144,21 @@
             this.buttonGuardarCambios.UseVisualStyleBackColor = true;
             this.buttonGuardarCambios.Click += new System.EventHandler(this.ButtonGuardarCambios_Click);
             // 
+            // labelAdvertencia
+            // 
+            this.labelAdvertencia.AutoSize = true;
+            this.labelAdvertencia.ForeColor = System.Drawing.Color.Red;
+            this.labelAdvertencia.Location = new System.Drawing.Point(21, 297);
+            this.labelAdvertencia.Name = "labelAdvertencia";
+            this.labelAdvertencia.Size = new System.Drawing.Size(0, 13);
+            this.labelAdvertencia.TabIndex = 11;
+            // 
             // TareaDetallada
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 401);
+            this.Controls.Add(this.labelAdvertencia);
             this.Controls.Add(this.buttonGuardarCambios);
             this.Controls.Add(this.dataGridViewEspecificaciones);
             this.Controls.Add(this.buttonCerrar);
@@ -155,6 +166,7 @@
             this.Text = "TareaDetallada";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEspecificaciones)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -170,5 +182,6 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn cumplido;
         private System.Windows.Forms.DataGridViewTextBoxColumn idEspecificacion;
         private System.Windows.Forms.Button buttonGuardarCambios;
+        private System.Windows.Forms.Label labelAdvertencia;
     }
 }

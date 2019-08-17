@@ -223,15 +223,27 @@ namespace ParetoKin.modelo
                     break;
                 }
 
-                nuevaFecha.mes += 1;
+                nuevaFecha.mes = aumentarMes(nuevaFecha.mes, 1);  // el giro del reloj
                 copia_dias -= dias_mes;
             }
 
+            int dias_mes_actual = obtenerDiasMes(nuevaFecha.Mes, nuevaFecha.anio);
+            if (nuevaFecha.dia + copia_dias > dias_mes_actual)
+            {
+                nuevaFecha.mes = aumentarMes(nuevaFecha.mes, 1);
+            }
 
-            nuevaFecha.dia += copia_dias;
+
+            nuevaFecha.dia = (nuevaFecha.dia+copia_dias)% dias_mes_actual;
 
             return nuevaFecha;
 
+        }
+
+        public int aumentarMes(int mes_actual, int cantidad)
+        {
+            int m = (mes_actual + cantidad) % 12;
+            return (m == 0)? 12: m;
         }
 
 
@@ -339,6 +351,68 @@ namespace ParetoKin.modelo
             }
         }
 
+        public static string day2dia(string day)
+        {
+            switch (day)
+            {
+
+                case "Monday":
+                    return Program.str.diccionario["lunes"];
+                case "Tuesday":
+                    return Program.str.diccionario["martes"];
+                case "Wednesday":
+                    return Program.str.diccionario["miercoles"];
+                case "Thursday":
+                    return Program.str.diccionario["jueves"];
+                case "Friday":
+                    return Program.str.diccionario["viernes"];
+                case "Saturday":
+                    return Program.str.diccionario["sabado"];
+                case "Sunday":
+                    return Program.str.diccionario["domingo"];
+
+
+                default:
+                    return Program.str.diccionario["Hoy"];
+            }
+
+        }
+
+
+        public static string month2mes(int mes)
+        {
+            switch (mes)
+            {
+
+                case 1:
+                    return Program.str.diccionario["Enero"];
+                case 2:
+                    return Program.str.diccionario["Febrero"];
+                case 3:
+                    return Program.str.diccionario["Marzo"];
+                case 4:
+                    return Program.str.diccionario["Abril"];
+                case 5:
+                    return Program.str.diccionario["Mayo"];
+                case 6:
+                    return Program.str.diccionario["Junio"];
+                case 7:
+                    return Program.str.diccionario["Julio"];
+                case 8:
+                    return Program.str.diccionario["Agosto"];
+                case 9:
+                    return Program.str.diccionario["Septiembre"];
+                case 10:
+                    return Program.str.diccionario["Octubre"];
+                case 11:
+                    return Program.str.diccionario["Noviembre"];
+                case 12:
+                    return Program.str.diccionario["Diciembre"];
+                default:
+                    return Program.str.diccionario["Hoy"];
+            }
+
+        }
 
         public string ToStringMMDDYYYY()
         {

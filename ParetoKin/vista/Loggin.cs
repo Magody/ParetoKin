@@ -24,7 +24,7 @@ namespace ParetoKin.vista
             this.labelUser.Text = Program.str.diccionario["labelUser"];
             this.labelPassword.Text = Program.str.diccionario["labelPassword"];
 
-           Console.WriteLine(md5_string("root123"));
+           //Console.WriteLine(md5_string("root123"));
 
         }
 

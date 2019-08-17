@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             this.dataGridViewHorario = new System.Windows.Forms.DataGridView();
-            this.buttonGuardarCambios = new System.Windows.Forms.Button();
-            this.buttonCerrar = new System.Windows.Forms.Button();
             this.horaInicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.horaFin = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.minutos = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -42,14 +40,29 @@
             this.sabado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.domingo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.buttonGuardarCambios = new System.Windows.Forms.Button();
+            this.buttonCerrar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.numericUpDownHora = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownMinutos = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.buttonAjustar = new System.Windows.Forms.Button();
+            this.tabControlPestanas = new System.Windows.Forms.TabControl();
+            this.tabPageHorarioGeneral = new System.Windows.Forms.TabPage();
+            this.tabPageHorarioVacacion = new System.Windows.Forms.TabPage();
+            this.dataGridViewHorarioVacacion = new System.Windows.Forms.DataGridView();
+            this.inicioVacacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.finVacacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tiempoVacacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.actividadVacacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.idVacacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewHorario)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHora)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinutos)).BeginInit();
+            this.tabControlPestanas.SuspendLayout();
+            this.tabPageHorarioGeneral.SuspendLayout();
+            this.tabPageHorarioVacacion.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewHorarioVacacion)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridViewHorario
@@ -67,36 +80,14 @@
             this.sabado,
             this.domingo,
             this.id});
-            this.dataGridViewHorario.Location = new System.Drawing.Point(12, 39);
+            this.dataGridViewHorario.Location = new System.Drawing.Point(3, 0);
             this.dataGridViewHorario.Name = "dataGridViewHorario";
-            this.dataGridViewHorario.Size = new System.Drawing.Size(742, 287);
+            this.dataGridViewHorario.Size = new System.Drawing.Size(726, 287);
             this.dataGridViewHorario.TabIndex = 0;
             this.dataGridViewHorario.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.celdaClick);
             this.dataGridViewHorario.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.celdaEditada);
             this.dataGridViewHorario.UserAddedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.filaAgregada);
             this.dataGridViewHorario.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.filaEliminada);
-            // 
-            // buttonGuardarCambios
-            // 
-            this.buttonGuardarCambios.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonGuardarCambios.Location = new System.Drawing.Point(206, 346);
-            this.buttonGuardarCambios.Name = "buttonGuardarCambios";
-            this.buttonGuardarCambios.Size = new System.Drawing.Size(177, 43);
-            this.buttonGuardarCambios.TabIndex = 10;
-            this.buttonGuardarCambios.Text = "Guardar cambios";
-            this.buttonGuardarCambios.UseVisualStyleBackColor = true;
-            this.buttonGuardarCambios.Click += new System.EventHandler(this.ButtonGuardarCambios_Click);
-            // 
-            // buttonCerrar
-            // 
-            this.buttonCerrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCerrar.Location = new System.Drawing.Point(439, 346);
-            this.buttonCerrar.Name = "buttonCerrar";
-            this.buttonCerrar.Size = new System.Drawing.Size(117, 43);
-            this.buttonCerrar.TabIndex = 9;
-            this.buttonCerrar.Text = "Cerrar";
-            this.buttonCerrar.UseVisualStyleBackColor = true;
-            this.buttonCerrar.Click += new System.EventHandler(this.ButtonCerrar_Click);
             // 
             // horaInicio
             // 
@@ -168,6 +159,28 @@
             this.id.Visible = false;
             this.id.Width = 5;
             // 
+            // buttonGuardarCambios
+            // 
+            this.buttonGuardarCambios.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonGuardarCambios.Location = new System.Drawing.Point(206, 354);
+            this.buttonGuardarCambios.Name = "buttonGuardarCambios";
+            this.buttonGuardarCambios.Size = new System.Drawing.Size(177, 43);
+            this.buttonGuardarCambios.TabIndex = 10;
+            this.buttonGuardarCambios.Text = "Guardar cambios";
+            this.buttonGuardarCambios.UseVisualStyleBackColor = true;
+            this.buttonGuardarCambios.Click += new System.EventHandler(this.ButtonGuardarCambios_Click);
+            // 
+            // buttonCerrar
+            // 
+            this.buttonCerrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonCerrar.Location = new System.Drawing.Point(432, 354);
+            this.buttonCerrar.Name = "buttonCerrar";
+            this.buttonCerrar.Size = new System.Drawing.Size(117, 43);
+            this.buttonCerrar.TabIndex = 9;
+            this.buttonCerrar.Text = "Cerrar";
+            this.buttonCerrar.UseVisualStyleBackColor = true;
+            this.buttonCerrar.Click += new System.EventHandler(this.ButtonCerrar_Click);
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -230,11 +243,96 @@
             this.buttonAjustar.UseVisualStyleBackColor = true;
             this.buttonAjustar.Click += new System.EventHandler(this.ButtonAjustar_Click);
             // 
+            // tabControlPestanas
+            // 
+            this.tabControlPestanas.Controls.Add(this.tabPageHorarioGeneral);
+            this.tabControlPestanas.Controls.Add(this.tabPageHorarioVacacion);
+            this.tabControlPestanas.Location = new System.Drawing.Point(12, 33);
+            this.tabControlPestanas.Name = "tabControlPestanas";
+            this.tabControlPestanas.SelectedIndex = 0;
+            this.tabControlPestanas.Size = new System.Drawing.Size(739, 321);
+            this.tabControlPestanas.TabIndex = 16;
+            // 
+            // tabPageHorarioGeneral
+            // 
+            this.tabPageHorarioGeneral.Controls.Add(this.dataGridViewHorario);
+            this.tabPageHorarioGeneral.Location = new System.Drawing.Point(4, 22);
+            this.tabPageHorarioGeneral.Name = "tabPageHorarioGeneral";
+            this.tabPageHorarioGeneral.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageHorarioGeneral.Size = new System.Drawing.Size(731, 295);
+            this.tabPageHorarioGeneral.TabIndex = 0;
+            this.tabPageHorarioGeneral.Text = "Horario normal";
+            this.tabPageHorarioGeneral.UseVisualStyleBackColor = true;
+            // 
+            // tabPageHorarioVacacion
+            // 
+            this.tabPageHorarioVacacion.Controls.Add(this.dataGridViewHorarioVacacion);
+            this.tabPageHorarioVacacion.Location = new System.Drawing.Point(4, 22);
+            this.tabPageHorarioVacacion.Name = "tabPageHorarioVacacion";
+            this.tabPageHorarioVacacion.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageHorarioVacacion.Size = new System.Drawing.Size(731, 295);
+            this.tabPageHorarioVacacion.TabIndex = 1;
+            this.tabPageHorarioVacacion.Text = "Horario vacación";
+            this.tabPageHorarioVacacion.UseVisualStyleBackColor = true;
+            // 
+            // dataGridViewHorarioVacacion
+            // 
+            this.dataGridViewHorarioVacacion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewHorarioVacacion.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.inicioVacacion,
+            this.finVacacion,
+            this.tiempoVacacion,
+            this.actividadVacacion,
+            this.idVacacion});
+            this.dataGridViewHorarioVacacion.Location = new System.Drawing.Point(0, 0);
+            this.dataGridViewHorarioVacacion.Name = "dataGridViewHorarioVacacion";
+            this.dataGridViewHorarioVacacion.Size = new System.Drawing.Size(728, 287);
+            this.dataGridViewHorarioVacacion.TabIndex = 17;
+            this.dataGridViewHorarioVacacion.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.celdaClickVacacion);
+            this.dataGridViewHorarioVacacion.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.celdaEditadaVacacion);
+            this.dataGridViewHorarioVacacion.UserAddedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.filaAgregadaVacacion);
+            this.dataGridViewHorarioVacacion.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.filaEliminadaVacacion);
+            // 
+            // inicioVacacion
+            // 
+            this.inicioVacacion.HeaderText = "Inicio";
+            this.inicioVacacion.Name = "inicioVacacion";
+            this.inicioVacacion.ReadOnly = true;
+            this.inicioVacacion.Width = 50;
+            // 
+            // finVacacion
+            // 
+            this.finVacacion.HeaderText = "Fin";
+            this.finVacacion.Name = "finVacacion";
+            this.finVacacion.ReadOnly = true;
+            this.finVacacion.Width = 50;
+            // 
+            // tiempoVacacion
+            // 
+            this.tiempoVacacion.HeaderText = "Tiempo (minutos)";
+            this.tiempoVacacion.Name = "tiempoVacacion";
+            this.tiempoVacacion.Width = 57;
+            // 
+            // actividadVacacion
+            // 
+            this.actividadVacacion.HeaderText = "Actividad del día";
+            this.actividadVacacion.Name = "actividadVacacion";
+            this.actividadVacacion.Width = 525;
+            // 
+            // idVacacion
+            // 
+            this.idVacacion.HeaderText = "id";
+            this.idVacacion.Name = "idVacacion";
+            this.idVacacion.ReadOnly = true;
+            this.idVacacion.Visible = false;
+            this.idVacacion.Width = 5;
+            // 
             // HorariosMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 401);
+            this.Controls.Add(this.tabControlPestanas);
             this.Controls.Add(this.buttonAjustar);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.numericUpDownMinutos);
@@ -242,12 +340,15 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonGuardarCambios);
             this.Controls.Add(this.buttonCerrar);
-            this.Controls.Add(this.dataGridViewHorario);
             this.Name = "HorariosMain";
             this.Text = "HorariosMain";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewHorario)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHora)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinutos)).EndInit();
+            this.tabControlPestanas.ResumeLayout(false);
+            this.tabPageHorarioGeneral.ResumeLayout(false);
+            this.tabPageHorarioVacacion.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewHorarioVacacion)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -274,5 +375,14 @@
         private System.Windows.Forms.NumericUpDown numericUpDownMinutos;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button buttonAjustar;
+        private System.Windows.Forms.TabControl tabControlPestanas;
+        private System.Windows.Forms.TabPage tabPageHorarioGeneral;
+        private System.Windows.Forms.TabPage tabPageHorarioVacacion;
+        private System.Windows.Forms.DataGridView dataGridViewHorarioVacacion;
+        private System.Windows.Forms.DataGridViewTextBoxColumn inicioVacacion;
+        private System.Windows.Forms.DataGridViewTextBoxColumn finVacacion;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tiempoVacacion;
+        private System.Windows.Forms.DataGridViewTextBoxColumn actividadVacacion;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idVacacion;
     }
 }

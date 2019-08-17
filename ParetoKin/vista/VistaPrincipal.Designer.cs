@@ -29,6 +29,12 @@
         private void InitializeComponent()
         {
             this.panelGenerico = new System.Windows.Forms.Panel();
+            this.labelSuNombre = new System.Windows.Forms.Label();
+            this.labelAyudar = new System.Windows.Forms.Label();
+            this.labelMagia = new System.Windows.Forms.Label();
+            this.labelAplicar = new System.Windows.Forms.Label();
+            this.labelPracticar = new System.Windows.Forms.Label();
+            this.labelAprender = new System.Windows.Forms.Label();
             this.labelSystema = new System.Windows.Forms.Label();
             this.pictureBoxLogoSystema = new System.Windows.Forms.PictureBox();
             this.buttonSalir = new System.Windows.Forms.Button();
@@ -41,12 +47,7 @@
             this.pictureBoxLogoEmpresa = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.buttonCerrarSesion = new System.Windows.Forms.Button();
-            this.labelAprender = new System.Windows.Forms.Label();
-            this.labelPracticar = new System.Windows.Forms.Label();
-            this.labelAplicar = new System.Windows.Forms.Label();
-            this.labelMagia = new System.Windows.Forms.Label();
-            this.labelAyudar = new System.Windows.Forms.Label();
-            this.labelSuNombre = new System.Windows.Forms.Label();
+            this.labelTitulo = new System.Windows.Forms.Label();
             this.panelGenerico.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogoSystema)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogoEmpresa)).BeginInit();
@@ -63,10 +64,76 @@
             this.panelGenerico.Controls.Add(this.labelAprender);
             this.panelGenerico.Controls.Add(this.labelSystema);
             this.panelGenerico.Controls.Add(this.pictureBoxLogoSystema);
-            this.panelGenerico.Location = new System.Drawing.Point(180, 5);
+            this.panelGenerico.Location = new System.Drawing.Point(180, 30);
             this.panelGenerico.Name = "panelGenerico";
             this.panelGenerico.Size = new System.Drawing.Size(802, 440);
             this.panelGenerico.TabIndex = 1;
+            // 
+            // labelSuNombre
+            // 
+            this.labelSuNombre.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.labelSuNombre.Font = new System.Drawing.Font("Gabriola", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelSuNombre.Location = new System.Drawing.Point(275, 228);
+            this.labelSuNombre.Name = "labelSuNombre";
+            this.labelSuNombre.Size = new System.Drawing.Size(115, 50);
+            this.labelSuNombre.TabIndex = 7;
+            this.labelSuNombre.Text = "Su nombre";
+            this.labelSuNombre.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // labelAyudar
+            // 
+            this.labelAyudar.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.labelAyudar.Font = new System.Drawing.Font("Gabriola", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelAyudar.Location = new System.Drawing.Point(166, 228);
+            this.labelAyudar.Name = "labelAyudar";
+            this.labelAyudar.Size = new System.Drawing.Size(91, 50);
+            this.labelAyudar.TabIndex = 6;
+            this.labelAyudar.Text = "Ayudar";
+            this.labelAyudar.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // labelMagia
+            // 
+            this.labelMagia.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.labelMagia.Font = new System.Drawing.Font("Gabriola", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelMagia.Location = new System.Drawing.Point(230, 118);
+            this.labelMagia.Name = "labelMagia";
+            this.labelMagia.Size = new System.Drawing.Size(91, 50);
+            this.labelMagia.TabIndex = 5;
+            this.labelMagia.Text = "Magia";
+            this.labelMagia.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // labelAplicar
+            // 
+            this.labelAplicar.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.labelAplicar.Font = new System.Drawing.Font("Gabriola", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelAplicar.Location = new System.Drawing.Point(470, 268);
+            this.labelAplicar.Name = "labelAplicar";
+            this.labelAplicar.Size = new System.Drawing.Size(204, 74);
+            this.labelAplicar.TabIndex = 4;
+            this.labelAplicar.Text = "Aplicar";
+            this.labelAplicar.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // labelPracticar
+            // 
+            this.labelPracticar.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.labelPracticar.Font = new System.Drawing.Font("Gabriola", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPracticar.Location = new System.Drawing.Point(470, 171);
+            this.labelPracticar.Name = "labelPracticar";
+            this.labelPracticar.Size = new System.Drawing.Size(204, 74);
+            this.labelPracticar.TabIndex = 3;
+            this.labelPracticar.Text = "Practicar";
+            this.labelPracticar.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // labelAprender
+            // 
+            this.labelAprender.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.labelAprender.Font = new System.Drawing.Font("Gabriola", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelAprender.Location = new System.Drawing.Point(470, 73);
+            this.labelAprender.Name = "labelAprender";
+            this.labelAprender.Size = new System.Drawing.Size(204, 74);
+            this.labelAprender.TabIndex = 2;
+            this.labelAprender.Text = "Aprender";
+            this.labelAprender.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // labelSystema
             // 
@@ -95,7 +162,7 @@
             this.buttonSalir.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.buttonSalir.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.buttonSalir.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSalir.Location = new System.Drawing.Point(107, 386);
+            this.buttonSalir.Location = new System.Drawing.Point(107, 398);
             this.buttonSalir.Name = "buttonSalir";
             this.buttonSalir.Size = new System.Drawing.Size(62, 59);
             this.buttonSalir.TabIndex = 2;
@@ -105,6 +172,7 @@
             // 
             // buttonTareas
             // 
+            this.buttonTareas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.buttonTareas.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonTareas.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.buttonTareas.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
@@ -114,11 +182,12 @@
             this.buttonTareas.Size = new System.Drawing.Size(174, 34);
             this.buttonTareas.TabIndex = 3;
             this.buttonTareas.Text = "Tareas";
-            this.buttonTareas.UseVisualStyleBackColor = true;
+            this.buttonTareas.UseVisualStyleBackColor = false;
             this.buttonTareas.Click += new System.EventHandler(this.ButtonTareas_Click);
             // 
             // buttonHorarios
             // 
+            this.buttonHorarios.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.buttonHorarios.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonHorarios.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.buttonHorarios.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
@@ -128,7 +197,7 @@
             this.buttonHorarios.Size = new System.Drawing.Size(174, 31);
             this.buttonHorarios.TabIndex = 4;
             this.buttonHorarios.Text = "Horarios";
-            this.buttonHorarios.UseVisualStyleBackColor = true;
+            this.buttonHorarios.UseVisualStyleBackColor = false;
             this.buttonHorarios.Click += new System.EventHandler(this.ButtonHorarios_Click);
             // 
             // labelFecha
@@ -154,6 +223,7 @@
             // 
             // buttonHoy
             // 
+            this.buttonHoy.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.buttonHoy.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonHoy.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.buttonHoy.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
@@ -163,11 +233,12 @@
             this.buttonHoy.Size = new System.Drawing.Size(174, 38);
             this.buttonHoy.TabIndex = 7;
             this.buttonHoy.Text = "Hoy";
-            this.buttonHoy.UseVisualStyleBackColor = true;
+            this.buttonHoy.UseVisualStyleBackColor = false;
             this.buttonHoy.Click += new System.EventHandler(this.ButtonHoy_Click);
             // 
             // buttonMatriz
             // 
+            this.buttonMatriz.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.buttonMatriz.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonMatriz.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.buttonMatriz.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
@@ -177,7 +248,7 @@
             this.buttonMatriz.Size = new System.Drawing.Size(174, 60);
             this.buttonMatriz.TabIndex = 8;
             this.buttonMatriz.Text = "Matriz de prioridades";
-            this.buttonMatriz.UseVisualStyleBackColor = true;
+            this.buttonMatriz.UseVisualStyleBackColor = false;
             this.buttonMatriz.Click += new System.EventHandler(this.ButtonMatriz_Click);
             // 
             // pictureBoxLogoEmpresa
@@ -195,7 +266,7 @@
             this.pictureBox1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.pictureBox1.Location = new System.Drawing.Point(0, 1);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(174, 451);
+            this.pictureBox1.Size = new System.Drawing.Size(174, 477);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
@@ -205,7 +276,7 @@
             this.buttonCerrarSesion.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.buttonCerrarSesion.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.buttonCerrarSesion.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCerrarSesion.Location = new System.Drawing.Point(12, 386);
+            this.buttonCerrarSesion.Location = new System.Drawing.Point(12, 398);
             this.buttonCerrarSesion.Name = "buttonCerrarSesion";
             this.buttonCerrarSesion.Size = new System.Drawing.Size(81, 61);
             this.buttonCerrarSesion.TabIndex = 10;
@@ -213,78 +284,24 @@
             this.buttonCerrarSesion.UseVisualStyleBackColor = true;
             this.buttonCerrarSesion.Click += new System.EventHandler(this.ButtonCerrarSesion_Click);
             // 
-            // labelAprender
+            // labelTitulo
             // 
-            this.labelAprender.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.labelAprender.Font = new System.Drawing.Font("Gabriola", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAprender.Location = new System.Drawing.Point(470, 73);
-            this.labelAprender.Name = "labelAprender";
-            this.labelAprender.Size = new System.Drawing.Size(204, 74);
-            this.labelAprender.TabIndex = 2;
-            this.labelAprender.Text = "Aprender";
-            this.labelAprender.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // labelPracticar
-            // 
-            this.labelPracticar.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.labelPracticar.Font = new System.Drawing.Font("Gabriola", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPracticar.Location = new System.Drawing.Point(470, 171);
-            this.labelPracticar.Name = "labelPracticar";
-            this.labelPracticar.Size = new System.Drawing.Size(204, 74);
-            this.labelPracticar.TabIndex = 3;
-            this.labelPracticar.Text = "Practicar";
-            this.labelPracticar.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // labelAplicar
-            // 
-            this.labelAplicar.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.labelAplicar.Font = new System.Drawing.Font("Gabriola", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAplicar.Location = new System.Drawing.Point(470, 268);
-            this.labelAplicar.Name = "labelAplicar";
-            this.labelAplicar.Size = new System.Drawing.Size(204, 74);
-            this.labelAplicar.TabIndex = 4;
-            this.labelAplicar.Text = "Aplicar";
-            this.labelAplicar.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // labelMagia
-            // 
-            this.labelMagia.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.labelMagia.Font = new System.Drawing.Font("Gabriola", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelMagia.Location = new System.Drawing.Point(230, 118);
-            this.labelMagia.Name = "labelMagia";
-            this.labelMagia.Size = new System.Drawing.Size(91, 50);
-            this.labelMagia.TabIndex = 5;
-            this.labelMagia.Text = "Magia";
-            this.labelMagia.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // labelAyudar
-            // 
-            this.labelAyudar.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.labelAyudar.Font = new System.Drawing.Font("Gabriola", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAyudar.Location = new System.Drawing.Point(166, 228);
-            this.labelAyudar.Name = "labelAyudar";
-            this.labelAyudar.Size = new System.Drawing.Size(91, 50);
-            this.labelAyudar.TabIndex = 6;
-            this.labelAyudar.Text = "Ayudar";
-            this.labelAyudar.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // labelSuNombre
-            // 
-            this.labelSuNombre.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.labelSuNombre.Font = new System.Drawing.Font("Gabriola", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSuNombre.Location = new System.Drawing.Point(275, 228);
-            this.labelSuNombre.Name = "labelSuNombre";
-            this.labelSuNombre.Size = new System.Drawing.Size(115, 50);
-            this.labelSuNombre.TabIndex = 7;
-            this.labelSuNombre.Text = "Su nombre";
-            this.labelSuNombre.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.labelTitulo.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.labelTitulo.Font = new System.Drawing.Font("Gabriola", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTitulo.Location = new System.Drawing.Point(482, 1);
+            this.labelTitulo.Name = "labelTitulo";
+            this.labelTitulo.Size = new System.Drawing.Size(208, 26);
+            this.labelTitulo.TabIndex = 8;
+            this.labelTitulo.Text = "ParettoKin";
+            this.labelTitulo.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // VistaPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(989, 452);
+            this.ClientSize = new System.Drawing.Size(989, 482);
+            this.Controls.Add(this.labelTitulo);
             this.Controls.Add(this.buttonCerrarSesion);
             this.Controls.Add(this.pictureBoxLogoEmpresa);
             this.Controls.Add(this.buttonMatriz);
@@ -333,6 +350,7 @@
         public System.Windows.Forms.Label labelSuNombre;
         public System.Windows.Forms.Label labelAyudar;
         public System.Windows.Forms.Label labelMagia;
+        public System.Windows.Forms.Label labelTitulo;
     }
 }
 

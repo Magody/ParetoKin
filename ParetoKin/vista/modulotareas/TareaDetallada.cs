@@ -38,11 +38,14 @@ namespace ParetoKin.vista.modulotareas
 
         bool esta_recalculando;
 
-        public TareaDetallada(TareasMain padre, MatrizMain padre2, int numTarea, string fechaInicial, string fechaFinal)
+        VistaPrincipal vistaPrincipal;
+
+        public TareaDetallada(TareasMain padre, MatrizMain padre2, VistaPrincipal vistaPrincipal, int numTarea, string fechaInicial, string fechaFinal)
         {
             InitializeComponent();
             this.padre = padre;
             this.padre2 = padre2;
+            this.vistaPrincipal = vistaPrincipal;
             this.numTarea = numTarea;
             this.buttonGuardarCambios.Text = Program.str.diccionario["buttonGuardarCambios"];
             this.buttonCerrar.Text = Program.str.diccionario["buttonCerrar"];
@@ -83,9 +86,25 @@ namespace ParetoKin.vista.modulotareas
 
             repintarCeldas();
             fue_modificado = false;
+            establecerColoresDeColumnasEditables();
 
         }
 
+
+        private void establecerColoresDeColumnasEditables()
+        {
+            for (int i = 0; i < dataGridViewEspecificaciones.Columns.Count; i++)
+            {
+                if (!dataGridViewEspecificaciones.Columns[i].ReadOnly)
+                {
+                    dataGridViewEspecificaciones.Columns[i].DefaultCellStyle.SelectionBackColor = Program.colorEdicionPermitidaSeleccion;
+                    dataGridViewEspecificaciones.Columns[i].DefaultCellStyle.ForeColor = Program.colorEdicionPermitidaTexto;
+                    dataGridViewEspecificaciones.Columns[i].DefaultCellStyle.SelectionForeColor = Program.colorEdicionPermitidaTexto;
+
+                }
+
+            }
+        }
         public void recalcularNumeroEspecificacion()
         {
 
@@ -153,12 +172,13 @@ namespace ParetoKin.vista.modulotareas
             for (int i = 0; i < lista_tareas.Count; i++)
             {
                 Fecha inicio = Fecha.convertirDateTimeAFecha(lista_tareas[i].DiaInicio);
+                DateTime inicioDateTime = new DateTime(inicio.Anio, inicio.Mes, inicio.Dia);
                 Fecha fin = Fecha.convertirDateTimeAFecha(lista_tareas[i].DiaFin);
-
+                DateTime finDateTime = new DateTime(fin.Anio, fin.Mes, fin.Dia);
 
                 dataGridViewEspecificaciones.Rows.Add(lista_tareas[i].Numero, lista_tareas[i].Especificacion,
-                    inicio.Dia + " " + Program.str.diccionario["de"] + " " + Fecha.convertirNumeroAMes(inicio.Mes),
-                    fin.Dia + " " + Program.str.diccionario["de"] + " " + Fecha.convertirNumeroAMes(fin.Mes),
+                    inicioDateTime.DayOfWeek + ", " + inicio.Dia + " " + Program.str.diccionario["de"] + " " + Fecha.convertirNumeroAMes(inicio.Mes),
+                    finDateTime.DayOfWeek + ", " + fin.Dia + " " + Program.str.diccionario["de"] + " " + Fecha.convertirNumeroAMes(fin.Mes),
                     lista_tareas[i].Dias + "", lista_tareas[i].Cumplido,
                     lista_tareas[i].Id);
 
@@ -183,21 +203,26 @@ namespace ParetoKin.vista.modulotareas
                     return;
                 }
 
-                this.Close();
+                
                 this.fue_modificado = false;
-                if(padre != null)
-                    padre.Show();
-                else
-                    padre2.Show();
+                
+            }
+            
+
+            if (padre != null)
+            {
+                
+                vistaPrincipal.form_generico = new TareasMain(vistaPrincipal) { TopLevel = false, FormBorderStyle = FormBorderStyle.None, Dock = DockStyle.Fill };
+                vistaPrincipal.panelGenerico.Controls.Add(vistaPrincipal.form_generico);
+                vistaPrincipal.form_generico.Show();
             }
             else
             {
-                this.Close();
-                if (padre != null)
-                    padre.Show();
-                else
-                    padre2.Show();
+                vistaPrincipal.form_generico = new MatrizMain(vistaPrincipal) { TopLevel = false, FormBorderStyle = FormBorderStyle.None, Dock = DockStyle.Fill };
+                vistaPrincipal.panelGenerico.Controls.Add(vistaPrincipal.form_generico);
+                vistaPrincipal.form_generico.Show();
             }
+            this.Close();
 
         }
 
@@ -327,12 +352,42 @@ namespace ParetoKin.vista.modulotareas
                     if ("" + dataGridViewEspecificaciones.Rows[i].Cells[4].Value == "")
                         dataGridViewEspecificaciones.Rows[i].Cells[4].Value = "1";
 
+                    
                     int dias = Convert.ToInt32(""+dataGridViewEspecificaciones.Rows[i].Cells[4].Value);
-                    dataGridViewEspecificaciones.Rows[i].Cells[2].Value = fechaDinamica.Dia + " " + Program.str.diccionario["de"] + " " + Fecha.convertirNumeroAMes(fechaDinamica.Mes);
+                    DateTime inicioDateTime = new DateTime(fechaDinamica.Anio, fechaDinamica.Mes, fechaDinamica.Dia);
+
+                    dataGridViewEspecificaciones.Rows[i].Cells[2].Value = Fecha.day2dia(inicioDateTime.DayOfWeek.ToString()) + ", " + fechaDinamica.Dia + " " + Program.str.diccionario["de"] + " " + Fecha.convertirNumeroAMes(fechaDinamica.Mes);
+
+                    if(fechaFinal.fechaActualEsMenor(fechaDinamica))
+                    {
+                        this.labelAdvertencia.Text = Program.str.diccionario["labelAdvertenciaFechaExcedida"];
+                        dataGridViewEspecificaciones.Rows[i].Cells[2].Style = new DataGridViewCellStyle { ForeColor = Color.Red}; //.Style = new DataGridViewCellStyle { ForeColor = Color.Orange, BackColor = Color.Blue };
+                        dataGridViewEspecificaciones.Rows[i].Cells[3].Style = new DataGridViewCellStyle { ForeColor = Color.Red}; //.Style = new DataGridViewCellStyle { ForeColor = Color.Orange, BackColor = Color.Blue };
+
+                    }
+                    else
+                    {
+                        this.labelAdvertencia.Text = "";
+                        dataGridViewEspecificaciones.Rows[i].Cells[2].Style = new DataGridViewCellStyle { ForeColor = Color.Black }; //.Style = new DataGridViewCellStyle { ForeColor = Color.Orange, BackColor = Color.Blue };
+                        dataGridViewEspecificaciones.Rows[i].Cells[3].Style = new DataGridViewCellStyle { ForeColor = Color.Black }; //.Style = new DataGridViewCellStyle { ForeColor = Color.Orange, BackColor = Color.Blue };
+
+
+                    }
+
+
                     fechaDinamica = fechaDinamica.adelantarFecha(dias);
-                    dataGridViewEspecificaciones.Rows[i].Cells[3].Value = fechaDinamica.Dia + " " + Program.str.diccionario["de"] + " " + Fecha.convertirNumeroAMes(fechaDinamica.Mes);
+                    Console.WriteLine(fechaDinamica);
+
+
+                    DateTime finDateTime = new DateTime(fechaDinamica.Anio, fechaDinamica.Mes, fechaDinamica.Dia);
+
+                    
+
+
+                    dataGridViewEspecificaciones.Rows[i].Cells[3].Value = Fecha.day2dia(finDateTime.DayOfWeek.ToString()) + ", " + fechaDinamica.Dia + " " + Program.str.diccionario["de"] + " " + Fecha.convertirNumeroAMes(fechaDinamica.Mes);
 
                     fechas.Add(fechaDinamica);
+
                 }
                 //Console.WriteLine("+");
                 /*
@@ -341,6 +396,7 @@ namespace ParetoKin.vista.modulotareas
                     Console.WriteLine(item.ToString());
                 }*/
                 esta_recalculando = false;
+                this.repintarCeldas();
             }
             
 

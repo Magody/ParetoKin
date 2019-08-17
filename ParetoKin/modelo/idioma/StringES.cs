@@ -38,7 +38,7 @@ namespace ParetoKin.modelo.idioma
             diccionarioES.Add("labelAprender", "Aprender");
             diccionarioES.Add("labelPracticar", "Practicar");
             diccionarioES.Add("labelAplicar", "Aplicar");
-
+            diccionarioES.Add("labelAdvertenciaFechaExcedida", "Los valores de feha marcados en rojo, significan que se ha excedido de la fecha de finalización.");
 
             // headers Text
             diccionarioES.Add("nombreTarea", "Nombre de la tarea");
@@ -69,6 +69,8 @@ namespace ParetoKin.modelo.idioma
             diccionarioES.Add("tareasNoImportantesSiUrgentes", "Tareas urgentes pero no importantes");
             diccionarioES.Add("tareasNoUrgentesSiImportantes", "Tareas importantes pero no urgentes");
 
+            diccionarioES.Add("actividadVacacion", "Actividad del día");
+
 
 
             // titulos y ventanas
@@ -87,6 +89,8 @@ namespace ParetoKin.modelo.idioma
             diccionarioES.Add("msgEliminacionTareas", "Algunas tareas se van a eliminar, ¿Esta seguro de eliminarlas?");
             diccionarioES.Add("tituloEliminarTarea", "Tareas a eliminarse");
 
+            diccionarioES.Add("tabPageHorarioGeneral", "Horario general");
+            diccionarioES.Add("tabPageHorarioVacacion", "Horario vacación");
 
 
 

@@ -28,60 +28,47 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridViewListaTareas = new System.Windows.Forms.DataGridView();
-            this.buttonCerrar = new System.Windows.Forms.Button();
             this.nombreTarea = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descripcionTarea = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.importanciaTarea = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.urgenciaTarea = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.fechaFin = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fechaInicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.numeroTarea = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.especificacionTarea = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cumplidoEspecificacion = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.numeroTarea1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.idEspecificacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.numeroEspecificacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.buttonCerrar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewListaTareas)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridViewListaTareas
             // 
+            this.dataGridViewListaTareas.AllowUserToAddRows = false;
+            this.dataGridViewListaTareas.AllowUserToDeleteRows = false;
             this.dataGridViewListaTareas.AllowUserToOrderColumns = true;
             this.dataGridViewListaTareas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewListaTareas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.nombreTarea,
-            this.descripcionTarea,
             this.importanciaTarea,
             this.urgenciaTarea,
-            this.fechaFin,
-            this.fechaInicio,
-            this.numeroTarea});
-            this.dataGridViewListaTareas.Location = new System.Drawing.Point(2, 27);
+            this.especificacionTarea,
+            this.cumplidoEspecificacion,
+            this.numeroTarea1,
+            this.idEspecificacion,
+            this.numeroEspecificacion});
+            this.dataGridViewListaTareas.Location = new System.Drawing.Point(18, 28);
             this.dataGridViewListaTareas.Name = "dataGridViewListaTareas";
-            this.dataGridViewListaTareas.Size = new System.Drawing.Size(783, 312);
+            this.dataGridViewListaTareas.Size = new System.Drawing.Size(754, 312);
             this.dataGridViewListaTareas.TabIndex = 1;
-            // 
-            // buttonCerrar
-            // 
-            this.buttonCerrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCerrar.Location = new System.Drawing.Point(339, 346);
-            this.buttonCerrar.Name = "buttonCerrar";
-            this.buttonCerrar.Size = new System.Drawing.Size(117, 43);
-            this.buttonCerrar.TabIndex = 8;
-            this.buttonCerrar.Text = "Cerrar";
-            this.buttonCerrar.UseVisualStyleBackColor = true;
-            this.buttonCerrar.Click += new System.EventHandler(this.ButtonCerrar_Click);
+            this.dataGridViewListaTareas.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.cambio);
             // 
             // nombreTarea
             // 
-            this.nombreTarea.HeaderText = "Nombre";
+            this.nombreTarea.HeaderText = "Tarea asociada";
             this.nombreTarea.Name = "nombreTarea";
             this.nombreTarea.ReadOnly = true;
             this.nombreTarea.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.nombreTarea.Width = 200;
-            // 
-            // descripcionTarea
-            // 
-            this.descripcionTarea.HeaderText = "Descripción";
-            this.descripcionTarea.Name = "descripcionTarea";
-            this.descripcionTarea.ReadOnly = true;
-            this.descripcionTarea.Width = 300;
             // 
             // importanciaTarea
             // 
@@ -101,25 +88,55 @@
             this.urgenciaTarea.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.urgenciaTarea.Width = 70;
             // 
-            // fechaFin
+            // especificacionTarea
             // 
-            this.fechaFin.HeaderText = "FechaFin";
-            this.fechaFin.Name = "fechaFin";
-            this.fechaFin.ReadOnly = true;
+            this.especificacionTarea.HeaderText = "Acción";
+            this.especificacionTarea.Name = "especificacionTarea";
+            this.especificacionTarea.ReadOnly = true;
+            this.especificacionTarea.Width = 400;
             // 
-            // fechaInicio
+            // cumplidoEspecificacion
             // 
-            this.fechaInicio.HeaderText = "fechaInicio";
-            this.fechaInicio.Name = "fechaInicio";
-            this.fechaInicio.ReadOnly = true;
-            this.fechaInicio.Visible = false;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.NullValue = false;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.cumplidoEspecificacion.DefaultCellStyle = dataGridViewCellStyle4;
+            this.cumplidoEspecificacion.HeaderText = "Cumplido";
+            this.cumplidoEspecificacion.Name = "cumplidoEspecificacion";
+            this.cumplidoEspecificacion.Width = 70;
             // 
-            // numeroTarea
+            // numeroTarea1
             // 
-            this.numeroTarea.HeaderText = "Numero";
-            this.numeroTarea.Name = "numeroTarea";
-            this.numeroTarea.ReadOnly = true;
-            this.numeroTarea.Visible = false;
+            this.numeroTarea1.HeaderText = "numeroTarea";
+            this.numeroTarea1.Name = "numeroTarea1";
+            this.numeroTarea1.ReadOnly = true;
+            this.numeroTarea1.Visible = false;
+            // 
+            // idEspecificacion
+            // 
+            this.idEspecificacion.HeaderText = "idEspecificacion";
+            this.idEspecificacion.Name = "idEspecificacion";
+            this.idEspecificacion.ReadOnly = true;
+            this.idEspecificacion.Visible = false;
+            // 
+            // numeroEspecificacion
+            // 
+            this.numeroEspecificacion.HeaderText = "numeroEspecificacion";
+            this.numeroEspecificacion.Name = "numeroEspecificacion";
+            this.numeroEspecificacion.ReadOnly = true;
+            this.numeroEspecificacion.Visible = false;
+            // 
+            // buttonCerrar
+            // 
+            this.buttonCerrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonCerrar.Location = new System.Drawing.Point(339, 346);
+            this.buttonCerrar.Name = "buttonCerrar";
+            this.buttonCerrar.Size = new System.Drawing.Size(117, 43);
+            this.buttonCerrar.TabIndex = 8;
+            this.buttonCerrar.Text = "Cerrar";
+            this.buttonCerrar.UseVisualStyleBackColor = true;
+            this.buttonCerrar.Click += new System.EventHandler(this.ButtonCerrar_Click);
             // 
             // HoyMain
             // 
@@ -140,11 +157,12 @@
         private System.Windows.Forms.DataGridView dataGridViewListaTareas;
         private System.Windows.Forms.Button buttonCerrar;
         private System.Windows.Forms.DataGridViewTextBoxColumn nombreTarea;
-        private System.Windows.Forms.DataGridViewTextBoxColumn descripcionTarea;
         private System.Windows.Forms.DataGridViewCheckBoxColumn importanciaTarea;
         private System.Windows.Forms.DataGridViewCheckBoxColumn urgenciaTarea;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fechaFin;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fechaInicio;
-        private System.Windows.Forms.DataGridViewTextBoxColumn numeroTarea;
+        private System.Windows.Forms.DataGridViewTextBoxColumn especificacionTarea;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn cumplidoEspecificacion;
+        private System.Windows.Forms.DataGridViewTextBoxColumn numeroTarea1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idEspecificacion;
+        private System.Windows.Forms.DataGridViewTextBoxColumn numeroEspecificacion;
     }
 }

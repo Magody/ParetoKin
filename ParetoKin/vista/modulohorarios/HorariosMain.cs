@@ -15,10 +15,13 @@ namespace ParetoKin.vista.modulohorarios
     public partial class HorariosMain : Form
     {
         VistaPrincipal padre;
-        bool fue_modificado, hay_eliminacion;
-        int idHorario = -1;
+        bool fue_modificado, hay_eliminacion, fue_modificado_vacacion, hay_eliminacion_vacacion;
+        int idHorario = -1, idHorarioVacacion = -1;
         private List<int> filasEliminadas;
-        bool esta_recalculando;
+
+        private List<int> filasEliminadasVacacion;
+
+        bool esta_recalculando, esta_recalculando_vacacion;
         Color colorPreferidoHorario = Color.Aqua;
         Color colorSecundarioHorario = Color.White;
 
@@ -43,13 +46,61 @@ namespace ParetoKin.vista.modulohorarios
             this.sabado.HeaderText = Program.str.diccionario["sabado"];
             this.domingo.HeaderText = Program.str.diccionario["domingo"];
 
+            this.inicioVacacion.HeaderText = Program.str.diccionario["horaInicio"];
+            this.finVacacion.HeaderText = Program.str.diccionario["horaFin"];
+            this.tiempoVacacion.HeaderText = Program.str.diccionario["minutos"];
+            this.actividadVacacion.HeaderText = Program.str.diccionario["actividadVacacion"];
+
+            this.tabPageHorarioGeneral.Text = Program.str.diccionario["tabPageHorarioGeneral"];
+            this.tabPageHorarioVacacion.Text = Program.str.diccionario["tabPageHorarioVacacion"];
+
+
             consultarHorario();
+
+            consultarHorarioVacacion();
+
+
             fue_modificado = false;
             esta_recalculando = false;
+            fue_modificado_vacacion = false;
+            esta_recalculando_vacacion = false;
             filasEliminadas = new List<int>();
+            filasEliminadasVacacion = new List<int>();
+            establecerColoresDeColumnasEditables();
+            establecerColoresDeColumnasEditablesVacacion();
 
-            
         }
+
+        private void establecerColoresDeColumnasEditables()
+        {
+            for (int i = 0; i < dataGridViewHorario.Columns.Count; i++)
+            {
+                if (!dataGridViewHorario.Columns[i].ReadOnly)
+                {
+                    dataGridViewHorario.Columns[i].DefaultCellStyle.SelectionBackColor = Program.colorEdicionPermitidaSeleccion;
+                    dataGridViewHorario.Columns[i].DefaultCellStyle.ForeColor = Program.colorEdicionPermitidaTexto;
+                    dataGridViewHorario.Columns[i].DefaultCellStyle.SelectionForeColor = Program.colorEdicionPermitidaTexto;
+
+                }
+
+            }
+        }
+
+        private void establecerColoresDeColumnasEditablesVacacion()
+        {
+            for (int i = 0; i < dataGridViewHorarioVacacion.Columns.Count; i++)
+            {
+                if (!dataGridViewHorarioVacacion.Columns[i].ReadOnly)
+                {
+                    dataGridViewHorarioVacacion.Columns[i].DefaultCellStyle.SelectionBackColor = Program.colorEdicionPermitidaSeleccion;
+                    dataGridViewHorarioVacacion.Columns[i].DefaultCellStyle.ForeColor = Program.colorEdicionPermitidaTexto;
+                    dataGridViewHorarioVacacion.Columns[i].DefaultCellStyle.SelectionForeColor = Program.colorEdicionPermitidaTexto;
+
+                }
+
+            }
+        }
+
 
         public void consultarHorario()
         {
@@ -98,9 +149,53 @@ namespace ParetoKin.vista.modulohorarios
         }
 
 
+        public void consultarHorarioVacacion()
+        {
+            dataGridViewHorarioVacacion.Rows.Clear();
+            using (var conn = new SqlConnection(Program.CONECCION_STRING))
+            {
+                conn.Open();
+
+                // 1.  create a command object identifying the stored procedure
+                SqlCommand cmd = new SqlCommand("consultarHorarioVacacion", conn);
+
+                // 2. set the command object so it knows to execute a stored procedure
+                cmd.CommandType = CommandType.StoredProcedure;
+
+
+                // execute the command
+                using (SqlDataReader rdr = cmd.ExecuteReader())
+                {
+                    int i = 0;
+                    while (rdr.Read())
+                    {
+                        if (i == 0)
+                        {
+                            string[] hora_split = rdr["horaInicio"].ToString().Split(':');
+                            horaInicial = new Hora(Convert.ToInt32(hora_split[0]), Convert.ToInt32(hora_split[1]), Convert.ToInt32(hora_split[2]));
+                            this.numericUpDownHora.Value = horaInicial.HoraT;
+                            this.numericUpDownMinutos.Value = horaInicial.Minutos;
+
+                        }
+                        dataGridViewHorarioVacacion.Rows.Add(rdr["horaInicio"].ToString(),
+                            rdr["horaFin"].ToString(), Convert.ToInt32(rdr["minutos"].ToString()),
+                            rdr["actividadDelDia"].ToString(), Convert.ToInt32(rdr["id"].ToString()));
+
+                        pintarCeldasVacacion(i);
+                        
+                        i++;
+                    }
+                }
+
+                conn.Close();
+            }
+
+        }
+
+
         private void ButtonCerrar_Click(object sender, EventArgs e)
         {
-            if (fue_modificado)
+            if (fue_modificado || fue_modificado_vacacion)
             {
                 DialogResult dialogResult = MessageBox.Show(Program.str.diccionario["msgGuardarSalir"],
                     Program.str.diccionario["tituloCambiosRealizados"], MessageBoxButtons.YesNoCancel);
@@ -108,6 +203,8 @@ namespace ParetoKin.vista.modulohorarios
                 if (dialogResult == DialogResult.Yes)
                 {
                     guardarCambios();
+                    guardarCambiosVacacion();
+                    MessageBox.Show(Program.str.diccionario["msgCambiosGuardadosExitosamente"]);
                 }
                 else if (dialogResult == DialogResult.Cancel)
                 {
@@ -125,6 +222,8 @@ namespace ParetoKin.vista.modulohorarios
         private void ButtonGuardarCambios_Click(object sender, EventArgs e)
         {
             guardarCambios();
+            guardarCambiosVacacion();
+            MessageBox.Show(Program.str.diccionario["msgCambiosGuardadosExitosamente"]);
         }
 
         public void eliminarPendientes()
@@ -145,6 +244,26 @@ namespace ParetoKin.vista.modulohorarios
                 }
             }
             filasEliminadas.Clear();
+        }
+
+        public void eliminarPendientesVacacion()
+        {
+            using (var conn = new SqlConnection(Program.CONECCION_STRING))
+            {
+
+
+                for (int i = 0; i < filasEliminadasVacacion.Count; i++)
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("eliminarHorarioVacacion", conn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@id", filasEliminadasVacacion[i]));
+
+                    cmd.ExecuteReader();
+                    conn.Close();
+                }
+            }
+            filasEliminadasVacacion.Clear();
         }
 
         private bool minutosValidos()
@@ -218,6 +337,46 @@ namespace ParetoKin.vista.modulohorarios
             
         }
 
+        private void recalcularTiemposVacacion()
+        {
+            if (!esta_recalculando_vacacion)
+            {
+
+                if (minutosValidos())
+                {
+                    esta_recalculando_vacacion = true;
+                    //hora inicial de referencia
+                    Hora horaDinamica = new Hora(horaInicial.HoraT, horaInicial.Minutos, horaInicial.Segundos);
+
+                    for (int i = 0; i < dataGridViewHorarioVacacion.Rows.Count - 1; i++)
+                    {
+
+
+                        if ("" + dataGridViewHorarioVacacion.Rows[i].Cells[2].Value == "")
+                        {
+                            this.dataGridViewHorarioVacacion.Rows[i].Cells[2].Value = "60";
+                        }
+
+                        int minutos = Convert.ToInt32("" + dataGridViewHorarioVacacion.Rows[i].Cells[2].Value);
+
+                        dataGridViewHorarioVacacion.Rows[i].Cells[0].Value = horaDinamica.ToString();
+                        horaDinamica.adelantarMinutos(minutos);
+                        dataGridViewHorarioVacacion.Rows[i].Cells[1].Value = horaDinamica.ToString();
+
+                        pintarCeldasVacacion(i);
+                    }
+                    esta_recalculando_vacacion = false;
+                }
+                else
+                {
+                    MessageBox.Show(Program.str.diccionario["msgLosMinutosDebenSerMayoresA0"]);
+                }
+
+
+            }
+
+        }
+
         public void pintarCeldas(int indice)
         {
             if (indice % 2 == 0)
@@ -235,6 +394,27 @@ namespace ParetoKin.vista.modulohorarios
                 for (int j = 0; j < dataGridViewHorario.Columns.Count - 1; j++)
                 {
                     dataGridViewHorario.Rows[indice].Cells[j].Style.BackColor = colorSecundarioHorario;
+                }
+            }
+        }
+
+        public void pintarCeldasVacacion(int indice)
+        {
+            if (indice % 2 == 0)
+            {
+
+                for (int j = 0; j < dataGridViewHorarioVacacion.Columns.Count - 1; j++)
+                {
+                    dataGridViewHorarioVacacion.Rows[indice].Cells[j].Style.BackColor = colorPreferidoHorario;
+                }
+
+            }
+            else
+            {
+
+                for (int j = 0; j < dataGridViewHorarioVacacion.Columns.Count - 1; j++)
+                {
+                    dataGridViewHorarioVacacion.Rows[indice].Cells[j].Style.BackColor = colorSecundarioHorario;
                 }
             }
         }
@@ -286,6 +466,45 @@ namespace ParetoKin.vista.modulohorarios
 
         }
 
+        public void actualizarCrearHorariosVacacion()
+        {
+
+            using (var conn = new SqlConnection(Program.CONECCION_STRING))
+            {
+
+
+                for (int i = 0; i < dataGridViewHorarioVacacion.Rows.Count - 1; i++)
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("actualizarOCrearHorarioVacacion", conn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+
+
+
+
+                    string id = "" + dataGridViewHorarioVacacion.Rows[i].Cells[4].Value;
+                    if (id == "")
+                    {
+                        cmd.Parameters.Add(new SqlParameter("@id", -1));
+                    }
+                    else
+                    {
+                        cmd.Parameters.Add(new SqlParameter("@id", Convert.ToInt32(id)));
+                    }
+                    cmd.Parameters.Add(new SqlParameter("@horaInicio", "" + dataGridViewHorarioVacacion.Rows[i].Cells[0].Value));
+                    cmd.Parameters.Add(new SqlParameter("@horaFin", "" + dataGridViewHorarioVacacion.Rows[i].Cells[1].Value));
+                    cmd.Parameters.Add(new SqlParameter("@minutos", Convert.ToInt32("" + dataGridViewHorarioVacacion.Rows[i].Cells[2].Value)));
+                    cmd.Parameters.Add(new SqlParameter("@actividad", "" + dataGridViewHorarioVacacion.Rows[i].Cells[3].Value));
+                   
+
+                    cmd.ExecuteReader();
+                    conn.Close();
+                }
+            }
+
+
+        }
 
         public void guardarCambios()
         {
@@ -299,12 +518,58 @@ namespace ParetoKin.vista.modulohorarios
 
 
             this.hay_eliminacion = false;
-            MessageBox.Show(Program.str.diccionario["msgCambiosGuardadosExitosamente"]);
+            
+        }
+
+        public void guardarCambiosVacacion()
+        {
+            this.fue_modificado_vacacion = false;
+            actualizarCrearHorariosVacacion();
+
+            if (hay_eliminacion_vacacion)
+            {
+                eliminarPendientesVacacion();
+            }
+
+
+            this.hay_eliminacion_vacacion = false;
+
+            
         }
 
         private void celdaEditada(object sender, DataGridViewCellEventArgs e)
         {
             this.fue_modificado = true;
+        }
+
+        private void celdaEditadaVacacion(object sender, DataGridViewCellEventArgs e)
+        {
+            this.fue_modificado_vacacion = true;
+        }
+
+        private void filaAgregadaVacacion(object sender, DataGridViewRowEventArgs e)
+        {
+            recalcularTiemposVacacion();
+        }
+
+        private void filaEliminadaVacacion(object sender, DataGridViewRowEventArgs e)
+        {
+            if (idHorarioVacacion > 0)
+            {
+                this.fue_modificado_vacacion = true;
+                this.hay_eliminacion_vacacion = true;
+                filasEliminadasVacacion.Add(idHorarioVacacion);
+                recalcularTiemposVacacion();
+            }
+        }
+
+        private void celdaClickVacacion(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                this.idHorarioVacacion = Convert.ToInt32(this.dataGridViewHorarioVacacion.Rows[dataGridViewHorarioVacacion.CurrentRow.Index].Cells[4].Value);
+                recalcularTiemposVacacion();
+            }
         }
 
         private void filaEliminada(object sender, DataGridViewRowEventArgs e)

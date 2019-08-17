@@ -229,11 +229,12 @@ namespace ParetoKin.vista.modulomatriz
 
                 this.numTarea = Convert.ToInt32(this.dataGridViewUrgenteImportante.Rows[dataGridViewUrgenteImportante.CurrentRow.Index].Cells[1].Value);
 
-                this.Hide();
+                
 
-                padre.form_generico = new TareaDetallada(null,this, numTarea, "" + this.dataGridViewUrgenteImportante.Rows[dataGridViewUrgenteImportante.CurrentRow.Index].Cells[2].Value, "" + this.dataGridViewUrgenteImportante.Rows[dataGridViewUrgenteImportante.CurrentRow.Index].Cells[3].Value) { TopLevel = false, FormBorderStyle = FormBorderStyle.None, Dock = DockStyle.Fill };
+                padre.form_generico = new TareaDetallada(null,this, padre, numTarea, "" + this.dataGridViewUrgenteImportante.Rows[dataGridViewUrgenteImportante.CurrentRow.Index].Cells[2].Value, "" + this.dataGridViewUrgenteImportante.Rows[dataGridViewUrgenteImportante.CurrentRow.Index].Cells[3].Value) { TopLevel = false, FormBorderStyle = FormBorderStyle.None, Dock = DockStyle.Fill };
                 padre.panelGenerico.Controls.Add(padre.form_generico);
                 padre.form_generico.Show();
+                this.Close();
             }
         }
 
@@ -245,11 +246,11 @@ namespace ParetoKin.vista.modulomatriz
 
                 this.numTarea = Convert.ToInt32(this.dataGridViewImportanteNoUrgente.Rows[dataGridViewImportanteNoUrgente.CurrentRow.Index].Cells[1].Value);
 
-                this.Hide();
 
-                padre.form_generico = new TareaDetallada(null, this, numTarea, "" + this.dataGridViewImportanteNoUrgente.Rows[dataGridViewImportanteNoUrgente.CurrentRow.Index].Cells[2].Value, "" + this.dataGridViewImportanteNoUrgente.Rows[dataGridViewImportanteNoUrgente.CurrentRow.Index].Cells[3].Value) { TopLevel = false, FormBorderStyle = FormBorderStyle.None, Dock = DockStyle.Fill };
+                padre.form_generico = new TareaDetallada(null, this, padre, numTarea, "" + this.dataGridViewImportanteNoUrgente.Rows[dataGridViewImportanteNoUrgente.CurrentRow.Index].Cells[2].Value, "" + this.dataGridViewImportanteNoUrgente.Rows[dataGridViewImportanteNoUrgente.CurrentRow.Index].Cells[3].Value) { TopLevel = false, FormBorderStyle = FormBorderStyle.None, Dock = DockStyle.Fill };
                 padre.panelGenerico.Controls.Add(padre.form_generico);
                 padre.form_generico.Show();
+                this.Close();
             }
         }
 
@@ -261,11 +262,10 @@ namespace ParetoKin.vista.modulomatriz
 
                 this.numTarea = Convert.ToInt32(this.dataGridViewUrgenteNoImportante.Rows[dataGridViewUrgenteNoImportante.CurrentRow.Index].Cells[1].Value);
 
-                this.Hide();
-
-                padre.form_generico = new TareaDetallada(null, this, numTarea, "" + this.dataGridViewUrgenteNoImportante.Rows[dataGridViewUrgenteNoImportante.CurrentRow.Index].Cells[2].Value, "" + this.dataGridViewUrgenteNoImportante.Rows[dataGridViewUrgenteNoImportante.CurrentRow.Index].Cells[3].Value) { TopLevel = false, FormBorderStyle = FormBorderStyle.None, Dock = DockStyle.Fill };
+                padre.form_generico = new TareaDetallada(null, this, padre, numTarea, "" + this.dataGridViewUrgenteNoImportante.Rows[dataGridViewUrgenteNoImportante.CurrentRow.Index].Cells[2].Value, "" + this.dataGridViewUrgenteNoImportante.Rows[dataGridViewUrgenteNoImportante.CurrentRow.Index].Cells[3].Value) { TopLevel = false, FormBorderStyle = FormBorderStyle.None, Dock = DockStyle.Fill };
                 padre.panelGenerico.Controls.Add(padre.form_generico);
                 padre.form_generico.Show();
+                this.Close();
             }
         }
 
@@ -277,11 +277,11 @@ namespace ParetoKin.vista.modulomatriz
 
                 this.numTarea = Convert.ToInt32(this.dataGridViewNoUrgenteNoImportante.Rows[dataGridViewNoUrgenteNoImportante.CurrentRow.Index].Cells[1].Value);
 
-                this.Hide();
 
-                padre.form_generico = new TareaDetallada(null, this, numTarea, "" + this.dataGridViewNoUrgenteNoImportante.Rows[dataGridViewNoUrgenteNoImportante.CurrentRow.Index].Cells[2].Value, "" + this.dataGridViewNoUrgenteNoImportante.Rows[dataGridViewNoUrgenteNoImportante.CurrentRow.Index].Cells[3].Value) { TopLevel = false, FormBorderStyle = FormBorderStyle.None, Dock = DockStyle.Fill };
+                padre.form_generico = new TareaDetallada(null, this, padre, numTarea, "" + this.dataGridViewNoUrgenteNoImportante.Rows[dataGridViewNoUrgenteNoImportante.CurrentRow.Index].Cells[2].Value, "" + this.dataGridViewNoUrgenteNoImportante.Rows[dataGridViewNoUrgenteNoImportante.CurrentRow.Index].Cells[3].Value) { TopLevel = false, FormBorderStyle = FormBorderStyle.None, Dock = DockStyle.Fill };
                 padre.panelGenerico.Controls.Add(padre.form_generico);
                 padre.form_generico.Show();
+                this.Close();
             }
         }
     }

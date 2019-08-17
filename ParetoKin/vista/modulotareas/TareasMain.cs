@@ -42,9 +42,24 @@ namespace ParetoKin.vista.modulotareas
             this.fue_modificado = false;
             this.hay_eliminacion = false;
 
+            establecerColoresDeColumnasEditables();
+
         }
 
+        private void establecerColoresDeColumnasEditables()
+        {
+            for (int i = 0; i < dataGridViewListaTareas.Columns.Count; i++)
+            {
+                if (!dataGridViewListaTareas.Columns[i].ReadOnly)
+                {
+                    dataGridViewListaTareas.Columns[i].DefaultCellStyle.SelectionBackColor = Program.colorEdicionPermitidaSeleccion;
+                    dataGridViewListaTareas.Columns[i].DefaultCellStyle.SelectionForeColor = Program.colorEdicionPermitidaTexto;
+                    dataGridViewListaTareas.Columns[i].DefaultCellStyle.ForeColor = Program.colorEdicionPermitidaTexto;
 
+                }
+
+            }
+        }
         public List<Tarea> buscarTareaLikeNombre()
         {
             List<Tarea> tareas = new List<Tarea>();
@@ -359,9 +374,9 @@ namespace ParetoKin.vista.modulotareas
 
                 try
                 {
-                    Fecha fechaInicial = Fecha.convertirDateTimeMMDDYYAFecha("" + dataGridViewListaTareas.Rows[dataGridViewListaTareas.CurrentRow.Index].Cells[4].Value);
+                    Fecha fechaInicial = Fecha.convertirDateTimeMMDDYYAFecha("" + dataGridViewListaTareas.Rows[indice].Cells[4].Value);
                     
-                    Fecha fechaFinal = Fecha.convertirDateTimeMMDDYYAFecha("" + dataGridViewListaTareas.Rows[dataGridViewListaTareas.CurrentRow.Index].Cells[5].Value);
+                    Fecha fechaFinal = Fecha.convertirDateTimeMMDDYYAFecha("" + dataGridViewListaTareas.Rows[indice].Cells[5].Value);
                     
                 }
                 catch (Exception)
@@ -372,11 +387,11 @@ namespace ParetoKin.vista.modulotareas
 
                 numTarea = Convert.ToInt32(this.dataGridViewListaTareas.Rows[indice].Cells[6].Value);
                 
-                this.Hide();
-
-                padre.form_generico = new TareaDetallada(this,null, numTarea, ""+ this.dataGridViewListaTareas.Rows[dataGridViewListaTareas.CurrentRow.Index].Cells[4].Value, "" + this.dataGridViewListaTareas.Rows[dataGridViewListaTareas.CurrentRow.Index].Cells[5].Value) { TopLevel = false, FormBorderStyle = FormBorderStyle.None, Dock = DockStyle.Fill };
+                
+                padre.form_generico = new TareaDetallada(this,null,padre, numTarea, ""+ this.dataGridViewListaTareas.Rows[indice].Cells[4].Value, "" + this.dataGridViewListaTareas.Rows[indice].Cells[5].Value) { TopLevel = false, FormBorderStyle = FormBorderStyle.None, Dock = DockStyle.Fill };
                 padre.panelGenerico.Controls.Add(padre.form_generico);
                 padre.form_generico.Show();
+                this.Close();
             }
 
         }

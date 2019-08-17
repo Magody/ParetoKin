@@ -19,6 +19,8 @@ namespace ParetoKin.vista.modulohoy
         Color colorTareasAtrasadas = Color.Pink;
         VistaPrincipal padre;
 
+
+        bool carga_completa;
         public HoyMain(VistaPrincipal padre)
         {
             InitializeComponent();
@@ -26,53 +28,48 @@ namespace ParetoKin.vista.modulohoy
             this.padre = padre;
 
             this.nombreTarea.HeaderText = Program.str.diccionario["nombreTarea"];
-            this.descripcionTarea.HeaderText = Program.str.diccionario["descripcionTarea"];
             this.importanciaTarea.HeaderText = Program.str.diccionario["importanciaTarea"];
             this.urgenciaTarea.HeaderText = Program.str.diccionario["urgenciaTarea"];
-            this.fechaFin.HeaderText = Program.str.diccionario["fechaFin"];
+            this.especificacionTarea.HeaderText = Program.str.diccionario["especificacion"];
+            this.cumplidoEspecificacion.HeaderText = Program.str.diccionario["cumplido"];
 
 
-            
             mostrarTareas();
+
+            establecerColoresDeColumnasEditables();
+
+            carga_completa = true;
+
+        }
+
+        private void establecerColoresDeColumnasEditables()
+        {
+            for (int i = 0; i < dataGridViewListaTareas.Columns.Count; i++)
+            {
+                if (!dataGridViewListaTareas.Columns[i].ReadOnly)
+                {
+                    dataGridViewListaTareas.Columns[i].DefaultCellStyle.SelectionBackColor = Program.colorEdicionPermitidaSeleccion;
+                    dataGridViewListaTareas.Columns[i].DefaultCellStyle.ForeColor = Program.colorEdicionPermitidaTexto;
+                    dataGridViewListaTareas.Columns[i].DefaultCellStyle.SelectionForeColor = Program.colorEdicionPermitidaTexto;
+
+                }
+
+            }
         }
 
 
         public void mostrarTareas()
         {
             dataGridViewListaTareas.Rows.Clear();
-            List<Tarea> lista_tareas_hoy = consultarTareasHoy();
-
-
-            for (int i = 0; i < lista_tareas_hoy.Count; i++)
-            {
-
-                dataGridViewListaTareas.Rows.Add(lista_tareas_hoy[i].Nombre, lista_tareas_hoy[i].Descripcion, lista_tareas_hoy[i].Importante, lista_tareas_hoy[i].Urgente, lista_tareas_hoy[i].FechaFin, lista_tareas_hoy[i].FechaInicio, lista_tareas_hoy[i].Numero);
-                for (int j = 0; j < dataGridViewListaTareas.Columns.Count - 1; j++)
-                {
-                    dataGridViewListaTareas.Rows[i].Cells[j].Style.BackColor = colorTareasHoy;
-                }
-            }
-
-            List<Tarea> lista_tareas_atrasadas = consultarTareasAtrasadas();
-
-
-            for (int i = 0; i < lista_tareas_atrasadas.Count; i++)
-            {
-
-                dataGridViewListaTareas.Rows.Add(lista_tareas_atrasadas[i].Nombre, lista_tareas_atrasadas[i].Descripcion, lista_tareas_atrasadas[i].Importante, lista_tareas_atrasadas[i].Urgente, lista_tareas_atrasadas[i].FechaFin, lista_tareas_atrasadas[i].FechaInicio, lista_tareas_atrasadas[i].Numero);
-                for (int j = 0; j < dataGridViewListaTareas.Columns.Count - 1; j++)
-                {
-                    dataGridViewListaTareas.Rows[dataGridViewListaTareas.Rows.Count-2].Cells[j].Style.BackColor = colorTareasAtrasadas;
-                }
-            }
-
+            consultarTareasHoy();
+            consultarTareasAtrasadas();
 
         }
 
 
-        public List<Tarea> consultarTareasHoy()
+        public void consultarTareasHoy()
         {
-            List<Tarea> tareas = new List<Tarea>();
+            
 
             using (var conn = new SqlConnection(Program.CONECCION_STRING))
             {
@@ -95,31 +92,33 @@ namespace ParetoKin.vista.modulohoy
                 using (SqlDataReader rdr = cmd.ExecuteReader())
                 {
                     // iterate through results, printing each to console
+                    
                     while (rdr.Read())
                     {
 
-                        tareas.Add(new Tarea(Convert.ToInt32(rdr["numero"].ToString()), rdr["nombre"].ToString(), rdr["descripcion"].ToString(),
-                            Convert.ToBoolean(rdr["importante"].ToString().ToLower()),
+                        dataGridViewListaTareas.Rows.Add(rdr["nombre"].ToString(), Convert.ToBoolean(rdr["importante"].ToString().ToLower()),
                             Convert.ToBoolean(rdr["urgente"].ToString().ToLower()),
-                            Convert.ToDateTime(rdr["fechaInicio"].ToString()),
-                            Convert.ToDateTime(rdr["fechaFin"].ToString())
-                            ));
+                            rdr["especificacion"].ToString(),
+                            Convert.ToBoolean(rdr["cumplido"].ToString().ToLower()),
+                            Convert.ToInt32(rdr["tnumero"].ToString()),
+                            Convert.ToInt32(rdr["id"].ToString()),
+                            Convert.ToInt32(rdr["enumero"].ToString()));
 
-
-                        //Console.WriteLine("Product: {0,-35} Total: {1,2}", rdr["nombrePlato"], rdr["precioPlato"]);
+                        for (int j = 0; j < dataGridViewListaTareas.Columns.Count - 1; j++)
+                        {
+                            dataGridViewListaTareas.Rows[dataGridViewListaTareas.Rows.Count - 1].Cells[j].Style.BackColor = colorTareasHoy;
+                        }
                     }
                 }
 
                 conn.Close();
             }
 
-            return tareas;
-
         }
 
-        public List<Tarea> consultarTareasAtrasadas()
+        public void consultarTareasAtrasadas()
         {
-            List<Tarea> tareas = new List<Tarea>();
+            
 
             using (var conn = new SqlConnection(Program.CONECCION_STRING))
             {
@@ -138,26 +137,28 @@ namespace ParetoKin.vista.modulohoy
                 // execute the command
                 using (SqlDataReader rdr = cmd.ExecuteReader())
                 {
-                    // iterate through results, printing each to console
+
                     while (rdr.Read())
                     {
 
-                        tareas.Add(new Tarea(Convert.ToInt32(rdr["numero"].ToString()), rdr["nombre"].ToString(), rdr["descripcion"].ToString(),
-                            Convert.ToBoolean(rdr["importante"].ToString().ToLower()),
+                        dataGridViewListaTareas.Rows.Add(rdr["nombre"].ToString(), Convert.ToBoolean(rdr["importante"].ToString().ToLower()),
                             Convert.ToBoolean(rdr["urgente"].ToString().ToLower()),
-                            Convert.ToDateTime(rdr["fechaInicio"].ToString()),
-                            Convert.ToDateTime(rdr["fechaFin"].ToString())
-                            ));
+                            rdr["especificacion"].ToString(),
+                            Convert.ToBoolean(rdr["cumplido"].ToString().ToLower()),
+                            Convert.ToInt32(rdr["tnumero"].ToString()),
+                            Convert.ToInt32(rdr["id"].ToString()),
+                            Convert.ToInt32(rdr["enumero"].ToString()));
 
+                        for (int j = 0; j < dataGridViewListaTareas.Columns.Count - 1; j++)
+                        {
+                            dataGridViewListaTareas.Rows[dataGridViewListaTareas.Rows.Count - 1].Cells[j].Style.BackColor = colorTareasAtrasadas;
+                        }
 
-                        //Console.WriteLine("Product: {0,-35} Total: {1,2}", rdr["nombrePlato"], rdr["precioPlato"]);
                     }
                 }
 
                 conn.Close();
             }
-
-            return tareas;
 
         }
 
@@ -167,6 +168,28 @@ namespace ParetoKin.vista.modulohoy
             this.Close();
 
             padre.mostrarInicio();
+        }
+
+        private void cambio(object sender, DataGridViewCellEventArgs e)
+        {
+            if (carga_completa)
+            {
+                //MessageBox.Show(dataGridViewListaTareas.Rows[dataGridViewListaTareas.CurrentRow.Index].Cells[0].Value + "");
+                using (var conn = new SqlConnection(Program.CONECCION_STRING))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("actualizarEspecificacionCumplida", conn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(new SqlParameter("@id", Convert.ToInt32("" + dataGridViewListaTareas.Rows[dataGridViewListaTareas.CurrentRow.Index].Cells[6].Value)));
+                    cmd.Parameters.Add(new SqlParameter("@cumplido", (Convert.ToBoolean("" + dataGridViewListaTareas.Rows[dataGridViewListaTareas.CurrentRow.Index].Cells[4].Value)) ? 1 : 0));
+
+
+                    cmd.ExecuteReader();
+                    conn.Close();
+                }
+            }
+
         }
     }
 }
