@@ -16,7 +16,7 @@ namespace ParetoKin
     {
 
         public static StringMain str;
-        public static string CONECCION_STRING = "Data Source=DESKTOP-U6QA500;Initial Catalog=Paretto;Integrated Security=True";
+        public static string CONECCION_STRING = "Data Source=USER-PC\\SQLEXPRESS;Initial Catalog=Paretto;Integrated Security=True";
         public static Color colorEdicionPermitidaTexto = Color.FromArgb(15, 17, 97);
         public static Color colorEdicionPermitidaSeleccion = Color.FromArgb(243, 245, 230);
         public static Color colorBotonGenerico = Color.FromArgb(224, 224, 224);

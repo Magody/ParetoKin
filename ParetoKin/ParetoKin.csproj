@@ -149,5 +149,8 @@
   <ItemGroup>
     <None Include="elCaminoDelDragon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="ico_lagranfuerza.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
