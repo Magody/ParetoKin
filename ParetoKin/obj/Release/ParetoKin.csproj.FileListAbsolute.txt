@@ -29,3 +29,4 @@ C:\Users\User\Documents\Programación\CSharp\ParetoKin\ParetoKin\obj\Release\Par
 C:\Users\User\Documents\Programación\CSharp\ParetoKin\ParetoKin\obj\Release\ParetoKin.csproj.CoreCompileInputs.cache
 C:\Users\User\Documents\Programación\CSharp\ParetoKin\ParetoKin\obj\Release\ParetoKin.exe
 C:\Users\User\Documents\Programación\CSharp\ParetoKin\ParetoKin\obj\Release\ParetoKin.pdb
+C:\Users\User\Documents\Programación\CSharp\ParetoKin\ParetoKin\obj\Release\ParetoKin.csprojAssemblyReference.cache
